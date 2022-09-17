@@ -1,0 +1,35 @@
+plugins {
+    id 'kotlinx-serialization'
+}
+apply from: "$rootDir/buildsystem/android-library.gradle"
+
+android {
+    buildTypes {
+        release {
+            buildConfigField "String", "BASE_URL", "\"https://your_api_url.com\""
+        }
+        debug {
+            buildConfigField "String", "BASE_URL", "\"https://your_api_url.com\""
+        }
+    }
+}
+
+dependencies {
+    def commonDependencies = rootProject.ext.commonDependencies
+    implementation commonDependencies.androidx.appcompat
+    //navigation
+    implementation commonDependencies.androidx.navigationFragment
+    implementation commonDependencies.androidx.navigationKtx
+    implementation commonDependencies.google.material
+    implementation commonDependencies.jetbrains.coroutine
+    implementation commonDependencies.other.adapterDelegates
+    implementation commonDependencies.jetbrains.kotlinSerialization
+    implementation commonDependencies.other.retrofitKotlinSerializationConverter
+    implementation commonDependencies.other.retrofit2
+    implementation commonDependencies.other.okHttp
+    implementation commonDependencies.other.okHttpInterceptor
+    // devtool
+    def developmentDependencies = rootProject.ext.developmentDependencies
+    debugImplementation developmentDependencies.chucker
+    releaseImplementation developmentDependencies.chuckNoOp
+}

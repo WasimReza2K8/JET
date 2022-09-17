@@ -1,0 +1,37 @@
+plugins {
+    id 'kotlinx-serialization'
+}
+apply from: "$rootDir/buildsystem/android-library.gradle"
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+
+android {
+    resourcePrefix '@placeholder_snake_case@_'
+    defaultConfig {
+        consumerProguardFiles "$projectDir/proguard-@placeholderlowercase@-consumer-rules.pro"
+    }
+}
+
+dependencies {
+    implementation project(':core')
+    implementation project(':modules:feature-@placeholderlowercase@-abstract')
+
+    def commonDependencies = rootProject.ext.commonDependencies
+
+    implementation commonDependencies.androidx.coreKtx
+    implementation commonDependencies.androidx.appcompat
+    implementation commonDependencies.androidx.constraintLayout
+    implementation commonDependencies.androidx.lifecycle
+
+    //navigation
+    implementation commonDependencies.androidx.navigationFragment
+    implementation commonDependencies.androidx.navigationKtx
+
+    implementation commonDependencies.other.adapterDelegates
+
+    implementation commonDependencies.google.material
+    implementation commonDependencies.jetbrains.coroutine
+    implementation commonDependencies.jetbrains.kotlinSerialization
+    implementation commonDependencies.other.retrofitKotlinSerializationConverter
+    implementation commonDependencies.other.retrofit2
+}

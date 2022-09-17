@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.17239583333333333" />
+        <entry key="modules/feature-counterattack/src/main/res/layout/counter_attack_activity.xml" value="0.171875" />
+        <entry key="modules/feature-counterattack/src/main/res/layout/counter_attack_fragment.xml" value="0.171875" />
+        <entry key="modules/feature-counterstrike/src/main/res/layout/counter_strike_activity.xml" value="0.171875" />
+        <entry key="modules/feature-counterstrike/src/main/res/layout/counter_strike_fragment.xml" value="0.171875" />
+        <entry key="modules/feature-log/src/main/res/layout/activity_log.xml" value="0.17239583333333333" />
+        <entry key="modules/feature-log/src/main/res/layout/fragment_log.xml" value="0.17239583333333333" />
+        <entry key="modules/feature-log/src/main/res/layout/log_activity.xml" value="0.17239583333333333" />
+        <entry key="modules/feature-log/src/main/res/layout/log_fragment.xml" value="0.17239583333333333" />
+        <entry key="modules/feature-loosecoupled/src/main/res/layout/loose_coupled_fragment.xml" value="0.1046875" />
+        <entry key="modules/feature-search/src/main/res/layout/search_activity.xml" value="0.171875" />
+        <entry key="modules/feature-search/src/main/res/layout/search_fragment.xml" value="0.171875" />
+        <entry key="modules/feature-teamlead/src/main/res/layout/team_lead_activity.xml" value="0.171875" />
+        <entry key="modules/feature-teamlead/src/main/res/layout/team_lead_fragment.xml" value="0.171875" />
+        <entry key="modules/feature-teammate/src/main/res/layout/team_mate_activity.xml" value="0.171875" />
+        <entry key="modules/feature-teammate/src/main/res/layout/team_mate_fragment.xml" value="0.171875" />
+        <entry key="modules/feature-testrun/src/main/res/layout/test_run_activity.xml" value="0.171875" />
+        <entry key="modules/feature-unittest/src/main/res/layout/unittest_activity.xml" value="0.171875" />
+        <entry key="modules/feature-unittest/src/main/res/layout/unittest_fragment.xml" value="0.171875" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

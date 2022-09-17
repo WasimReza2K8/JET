@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/testrun_nav_graph"
+    app:startDestination="@id/test_run"
+    >
+
+    <fragment
+        android:id="@+id/test_run"
+        android:name="com.example.feature.testrun.presentation.view.TestRunFragment"
+        android:label="TestRunFragment"
+        />
+</navigation>
