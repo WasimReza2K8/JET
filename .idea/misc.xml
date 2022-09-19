@@ -3,6 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/compose-model-1663487792183.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1663511471505.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1663515265724.xml" value="0.45740740740740743" />
+        <entry key="../../../../layout/compose-model-1663516004216.xml" value="0.45740740740740743" />
+        <entry key="../../../../layout/compose-model-1663522750374.xml" value="1.0" />
+        <entry key="../../../../layout/compose-model-1663523221323.xml" value="0.5" />
+        <entry key="../../../../layout/compose-model-1663526100734.xml" value="0.25" />
+        <entry key="../../../../layout/compose-model-1663526172023.xml" value="0.5" />
+        <entry key="../../../../layout/compose-model-1663592550995.xml" value="0.5" />
+        <entry key="../../../../layout/compose-model-1663596854363.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1663597864538.xml" value="0.25" />
+        <entry key="../../../../layout/compose-model-1663597871498.xml" value="2.0" />
+        <entry key="../../../../layout/compose-model-1663597978815.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1663598791125.xml" value="0.5" />
+        <entry key="../../../../layout/compose-model-1663599276460.xml" value="0.16452648475120385" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17239583333333333" />
         <entry key="modules/feature-counterattack/src/main/res/layout/counter_attack_activity.xml" value="0.171875" />
         <entry key="modules/feature-counterattack/src/main/res/layout/counter_attack_fragment.xml" value="0.171875" />
@@ -13,6 +28,14 @@
         <entry key="modules/feature-log/src/main/res/layout/log_activity.xml" value="0.17239583333333333" />
         <entry key="modules/feature-log/src/main/res/layout/log_fragment.xml" value="0.17239583333333333" />
         <entry key="modules/feature-loosecoupled/src/main/res/layout/loose_coupled_fragment.xml" value="0.1046875" />
+        <entry key="modules/feature-restaurant/src/main/res/drawable/ic_delivery_costs_small.xml" value="0.1805" />
+        <entry key="modules/feature-restaurant/src/main/res/drawable/ic_distance_small.xml" value="0.1805" />
+        <entry key="modules/feature-restaurant/src/main/res/drawable/ic_min_cost_small.xml" value="0.1805" />
+        <entry key="modules/feature-restaurant/src/main/res/drawable/ic_new_release.xml" value="0.1955" />
+        <entry key="modules/feature-restaurant/src/main/res/drawable/ic_newest.xml" value="0.1805" />
+        <entry key="modules/feature-restaurant/src/main/res/drawable/ic_rating.xml" value="0.1805" />
+        <entry key="modules/feature-restaurant/src/main/res/drawable/ic_shopping_bag.xml" value="0.1805" />
+        <entry key="modules/feature-restaurant/src/main/res/drawable/ic_storefront.xml" value="0.1805" />
         <entry key="modules/feature-search/src/main/res/layout/search_activity.xml" value="0.171875" />
         <entry key="modules/feature-search/src/main/res/layout/search_fragment.xml" value="0.171875" />
         <entry key="modules/feature-teamlead/src/main/res/layout/team_lead_activity.xml" value="0.171875" />

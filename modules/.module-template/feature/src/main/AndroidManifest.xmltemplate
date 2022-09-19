@@ -15,9 +15,9 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.feature.@placeholderlowercase@"
+    package="com.jet.feature.@placeholderlowercase@"
     >
     <application>
-        <activity android:name="com.example.feature.@placeholderlowercase@.presentation.view.@PlaceholderName@Activity" />
+        <activity android:name="com.jet.feature.@placeholderlowercase@.presentation.view.@PlaceholderName@Activity" />
     </application>
 </manifest>

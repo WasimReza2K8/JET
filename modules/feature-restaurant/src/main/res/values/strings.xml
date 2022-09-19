@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="restaurant_title">Restaurant</string>
+    <string name="restaurant_rating">Rating</string>
+    <string name="restaurant_min">Min.</string>
+</resources>

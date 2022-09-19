@@ -18,6 +18,14 @@ ext {
     retrofit2_version = '2.9.0'
     glide_version = '4.12.0'
     room_version = "2.4.2"
+    //compose
+    compose_version = "1.2.0"
+    compose_activity_version = "1.5.1"
+    compose_viewmodel_version = "2.4.1"
+    flow_layout_version = '0.23.1'
+    compose_animation_version = '1.1.1'
+    compose_runtime_version = '1.1.1'
+    custom_view_version = "1.0.0"
     //dev tool
     detekt_version = "1.19.0"
     chucker_version = "3.5.2"
@@ -69,6 +77,24 @@ ext {
                     kotlinLib          : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}",
                     coroutine          : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutine_version}",
                     kotlinSerialization: "org.jetbrains.kotlinx:kotlinx-serialization-json:${kotlinx_serialization}"
+            ],
+
+            compose  : [
+                    ui                    : "androidx.compose.ui:ui:${compose_version}",
+                    uiTooling             : "androidx.compose.ui:ui-tooling:${compose_version}",
+                    preview               : "androidx.compose.ui:ui-tooling-preview:${compose_version}",
+                    foundation            : "androidx.compose.foundation:foundation:${compose_version}",
+                    materialDesign        : "androidx.compose.material:material:${compose_version}",
+                    meterialIcon          : "androidx.compose.material:material-icons-core:${compose_version}",
+                    iconExt               : "androidx.compose.material:material-icons-extended:${compose_version}",
+                    activity              : "androidx.activity:activity-compose:${compose_activity_version}",
+                    viewModel             : "androidx.lifecycle:lifecycle-viewmodel-compose:${lifecycle_version}",
+                    animation             : "androidx.compose.animation:animation:${compose_animation_version}",
+                    flowLayout            : "com.google.accompanist:accompanist-flowlayout:${flow_layout_version}",
+                    composeRuntime        : "androidx.compose.runtime:runtime:${compose_version}",
+                    composeRunTimeLiveData: "androidx.compose.runtime:runtime-livedata:${compose_version}",
+                    customView            : "androidx.customview:customview-poolingcontainer:${custom_view_version}}",
+                    uiTestManifest        : "androidx.compose.ui:ui-test-manifest:${compose_version}"
             ],
 
             other    : [

@@ -36,16 +36,17 @@ android {
     kotlinOptions {
         jvmTarget = '11'
     }
-
     buildFeatures {
         viewBinding true
     }
 }
 
 dependencies {
+    implementation project(':modules:feature-restaurant-abstract')
+    implementation project(':modules:feature-restaurant')
 
     def commonDependencies = rootProject.ext.commonDependencies
-
+    implementation project(':core-ui')
     implementation commonDependencies.androidx.coreKtx
     implementation commonDependencies.androidx.appcompat
     implementation commonDependencies.androidx.constraintLayout

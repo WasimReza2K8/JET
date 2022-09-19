@@ -12,9 +12,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core-ui" />
             <option value="$PROJECT_DIR$/modules" />
-            <option value="$PROJECT_DIR$/modules/feature-testrun" />
-            <option value="$PROJECT_DIR$/modules/feature-testrun-abstract" />
+            <option value="$PROJECT_DIR$/modules/feature-restaurant" />
+            <option value="$PROJECT_DIR$/modules/feature-restaurant-abstract" />
           </set>
         </option>
       </GradleProjectSettings>

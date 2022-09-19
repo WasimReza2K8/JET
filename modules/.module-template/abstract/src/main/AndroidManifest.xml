@@ -14,4 +14,4 @@
   ~ limitations under the License.
   -->
 
-<manifest package="com.example.@placeholderlowercase@"/>
+<manifest package="com.jet.@placeholderlowercase@"/>
