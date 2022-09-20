@@ -18,7 +18,23 @@
         <entry key="../../../../layout/compose-model-1663597978815.xml" value="0.1" />
         <entry key="../../../../layout/compose-model-1663598791125.xml" value="0.5" />
         <entry key="../../../../layout/compose-model-1663599276460.xml" value="0.16452648475120385" />
+        <entry key="../../../../layout/compose-model-1663678457973.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1663685902954.xml" value="1.0" />
+        <entry key="../../../../layout/compose-model-1663687379232.xml" value="0.5030549898167006" />
+        <entry key="../../../../layout/compose-model-1663689639582.xml" value="0.45740740740740743" />
+        <entry key="../../../../layout/compose-model-1663690244324.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1663690336634.xml" value="0.22" />
+        <entry key="../../../../layout/compose-model-1663691314344.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1663691361449.xml" value="0.24641460234680573" />
+        <entry key="../../../../layout/compose-model-1663693981219.xml" value="0.16089527027027026" />
+        <entry key="../../../../layout/compose-model-1663694131948.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1663698776661.xml" value="0.33055555555555555" />
+        <entry key="../../../../layout/compose-model-1663699866181.xml" value="0.22" />
+        <entry key="../../../../layout/compose-model-1663704837692.xml" value="0.3635437881873727" />
+        <entry key="../../../../layout/compose-model-1663705137843.xml" value="2.0" />
+        <entry key="../../../../layout/compose-model-1663708383320.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17239583333333333" />
+        <entry key="core-ui/src/main/res/drawable/ic_delivery_costs_small.xml" value="0.1805" />
         <entry key="modules/feature-counterattack/src/main/res/layout/counter_attack_activity.xml" value="0.171875" />
         <entry key="modules/feature-counterattack/src/main/res/layout/counter_attack_fragment.xml" value="0.171875" />
         <entry key="modules/feature-counterstrike/src/main/res/layout/counter_strike_activity.xml" value="0.171875" />
@@ -36,6 +52,7 @@
         <entry key="modules/feature-restaurant/src/main/res/drawable/ic_rating.xml" value="0.1805" />
         <entry key="modules/feature-restaurant/src/main/res/drawable/ic_shopping_bag.xml" value="0.1805" />
         <entry key="modules/feature-restaurant/src/main/res/drawable/ic_storefront.xml" value="0.1805" />
+        <entry key="modules/feature-restaurant/src/main/res/layout/restaurant_activity.xml" value="0.22871376811594202" />
         <entry key="modules/feature-search/src/main/res/layout/search_activity.xml" value="0.171875" />
         <entry key="modules/feature-search/src/main/res/layout/search_fragment.xml" value="0.171875" />
         <entry key="modules/feature-teamlead/src/main/res/layout/team_lead_activity.xml" value="0.171875" />

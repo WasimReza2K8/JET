@@ -16,12 +16,11 @@ import com.example.core.ui.theme.JetTheme
 @Composable
 fun JetChip(
     chip: Chip,
-    onChipClicked: (Int) -> Unit = {},
 ) {
     FilterChip(
         selected = chip.checked,
         onClick = {
-            onChipClicked(chip.id)
+            chip.onCheckedListener()
         },
         colors = ChipDefaults.filterChipColors(
             selectedBackgroundColor = JetTheme.color.Orange500,
@@ -45,7 +44,6 @@ fun PreviewFilterChipEnabled() {
                 chip = Chip(
                     text = "rate",
                 ),
-                onChipClicked = {}
             )
         }
 
@@ -56,6 +54,6 @@ data class Chip(
     val text: String,
     val id: Int = text.hashCode(),
     val checked: Boolean = false,
-    val onCheckedListener: (Boolean) -> Unit = {},
+    val onCheckedListener: () -> Unit = {},
 )
 

@@ -16,28 +16,120 @@
 
 package com.jet.feature.restaurant.presentation.viewmodel
 
-import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
+import com.example.core.R.string
+import com.example.core.resProvider.ResourceProvider
+import com.example.core.state.Output
+import com.example.core.state.Output.NetworkError
+import com.example.core.state.Output.UnknownError
 import com.example.core.viewmodel.BaseViewModel
+import com.jet.feature.restaurant.domain.model.SortingType
+import com.jet.feature.restaurant.domain.model.SortingType.AverageProductPrice
+import com.jet.feature.restaurant.domain.model.SortingType.BestMatch
+import com.jet.feature.restaurant.domain.model.SortingType.DeliveryCost
+import com.jet.feature.restaurant.domain.model.SortingType.Distance
+import com.jet.feature.restaurant.domain.model.SortingType.MinCost
+import com.jet.feature.restaurant.domain.model.SortingType.Newest
+import com.jet.feature.restaurant.domain.model.SortingType.Popularity
+import com.jet.feature.restaurant.domain.model.SortingType.RatingAverage
+import com.jet.feature.restaurant.domain.usecase.GetDefaultRestaurantsUseCase
+import com.jet.feature.restaurant.domain.usecase.GetSortedRestaurants
+import com.jet.feature.restaurant.presentation.mapper.mapToRestaurantUi
+import com.jet.feature.restaurant.presentation.model.RestaurantUiModel
+import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Effect.NetworkErrorEffect
+import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Effect.UnknownErrorEffect
+import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnAverageProductPriceClicked
 import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnBackButtonClicked
+import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnBestMatchClicked
+import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnDeliveryCostClicked
+import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnDistanceClicked
+import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnMinCostClicked
+import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnNewestClicked
+import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnPopularityClicked
+import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnRatingAverageClicked
 import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnViewModelInit
-import com.jet.restaurant.domain.usecase.RestaurantUseCase
+import com.jet.restaurant.domain.model.Restaurant
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class RestaurantViewModel @Inject constructor(
-    private val useCase: RestaurantUseCase,
-    private val savedStateHandle: SavedStateHandle,
+    private val getDefaultRestaurantsUseCase: GetDefaultRestaurantsUseCase,
+    private val getSortedRestaurants: GetSortedRestaurants,
+    private val resourceProvider: ResourceProvider,
 ) : BaseViewModel<RestaurantContract.Event, RestaurantContract.State, RestaurantContract.Effect>() {
-
+    private lateinit var restaurantList: List<Restaurant>
     override fun provideInitialState() = RestaurantContract.State()
 
     override fun handleEvent(event: RestaurantContract.Event) {
         when (event) {
-            OnViewModelInit -> {}
+            OnViewModelInit -> getDefaultRestaurants()
             OnBackButtonClicked -> {}
+            OnAverageProductPriceClicked -> getSortedRestaurants(AverageProductPrice)
+            OnBestMatchClicked -> getSortedRestaurants(BestMatch)
+            OnDeliveryCostClicked -> getSortedRestaurants(DeliveryCost)
+            OnDistanceClicked -> getSortedRestaurants(Distance)
+            OnMinCostClicked -> getSortedRestaurants(MinCost)
+            OnNewestClicked -> getSortedRestaurants(Newest)
+            OnPopularityClicked -> getSortedRestaurants(Popularity)
+            OnRatingAverageClicked -> getSortedRestaurants(RatingAverage)
         }
     }
 
-    init {}
+    private fun getSortedRestaurants(sortingType: SortingType) {
+        viewModelScope.launch {
+            getSortedRestaurants(
+                restaurantList,
+                sortingType
+            ).catch {
+                sendEffect(UnknownErrorEffect(resourceProvider.getString(string.unknown_error)))
+            }.collect { output ->
+                when (output) {
+                    is Output.Success -> updateState {
+                        copy(
+                            restaurantList = getRestaurantUiList(output.result),
+                            selectedSortingType = sortingType
+                        )
+                    }
+                    else -> {
+                        // do nothing
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getDefaultRestaurants() {
+        viewModelScope.launch {
+            getDefaultRestaurantsUseCase().collect { output ->
+                when (output) {
+                    is Output.Success -> {
+                        restaurantList = output.result
+                        updateState {
+                            copy(
+                                restaurantList = getRestaurantUiList(output.result),
+                            )
+                        }
+                    }
+                    NetworkError -> {
+                        sendEffect(NetworkErrorEffect(resourceProvider.getString(string.network_error)))
+                    }
+                    UnknownError -> {
+                        sendEffect(UnknownErrorEffect(resourceProvider.getString(string.unknown_error)))
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getRestaurantUiList(list: List<Restaurant>): List<RestaurantUiModel> =
+        list.map { restaurant ->
+            restaurant.mapToRestaurantUi(resourceProvider)
+        }
+
+    init {
+        onUiEvent(OnViewModelInit)
+    }
 }

@@ -1,26 +1,36 @@
 package com.example.wasim
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material.Text
+import com.example.core.ui.theme.JetTheme
+import com.jet.restaurant.presentation.RestaurantLauncher
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     // todo add feature launcher
-    // @Inject
-    // lateinit var launcher: TestRunLauncher
+    @Inject
+    lateinit var launcher: RestaurantLauncher
     private val activityScope = CoroutineScope(Dispatchers.Main)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+       /* setContent {
+            JetTheme {
+                Text(text = "Hello Compose")
+            }
+        }*/
         setContentView(R.layout.activity_main)
         activityScope.launch {
             delay(SPLASH_SCREEN_TIME)
-            // launcher.launch(this@MainActivity)
+            launcher.launch(this@MainActivity)
             finish()
         }
     }

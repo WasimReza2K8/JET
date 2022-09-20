@@ -19,14 +19,26 @@ package com.jet.feature.restaurant.presentation.viewmodel
 import com.example.core.viewmodel.ViewEffect
 import com.example.core.viewmodel.ViewEvent
 import com.example.core.viewmodel.ViewState
+import com.jet.feature.restaurant.domain.model.SortingType
+import com.jet.feature.restaurant.domain.model.SortingType.BestMatch
+import com.jet.feature.restaurant.presentation.model.RestaurantUiModel
 
 object RestaurantContract {
     data class State(
-        val text: String = "", // Remove if not used
+        val restaurantList: List<RestaurantUiModel> = emptyList(),
+        val selectedSortingType: SortingType = BestMatch,
     ) : ViewState
 
     sealed interface Event : ViewEvent {
         object OnViewModelInit : Event // Remove if not used
+        object OnBestMatchClicked : Event
+        object OnRatingAverageClicked : Event
+        object OnDistanceClicked : Event
+        object OnPopularityClicked : Event
+        object OnMinCostClicked : Event
+        object OnDeliveryCostClicked : Event
+        object OnAverageProductPriceClicked : Event
+        object OnNewestClicked : Event
         object OnBackButtonClicked : Event // Remove if not used
     }
 

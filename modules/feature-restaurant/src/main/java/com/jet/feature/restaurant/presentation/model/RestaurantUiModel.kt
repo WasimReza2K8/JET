@@ -1,4 +1,4 @@
-package com.jet.feature.restaurant.presentation
+package com.jet.feature.restaurant.presentation.model
 
 data class RestaurantUiModel(
     val id: String,
@@ -11,10 +11,10 @@ data class RestaurantUiModel(
         val bestMatch: Double,
         val newest: Double,
         val ratingAverage: Double,
-        val distance: Double,
+        val distance: String,
         val popularity: Double,
-        val averageProductPrice: Double,
-        val deliveryCosts: Double,
-        val minCost: Double,
+        val averageProductPrice: String,
+        val deliveryCosts: String,
+        val minCost: String,
     )
 }

@@ -9,6 +9,13 @@ android {
     defaultConfig {
         consumerProguardFiles "$projectDir/proguard-restaurant-consumer-rules.pro"
     }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion "1.2.0"
+    }
+
 }
 
 dependencies {

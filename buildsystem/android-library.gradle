@@ -36,10 +36,6 @@ android {
     buildFeatures {
         compose true
     }
-    kotlinOptions {
-        freeCompilerArgs += '-opt-in=androidx.compose.material.ExperimentalMaterialApi'
-        freeCompilerArgs += '-opt-in=androidx.compose.ui.ExperimentalComposeUiApi'
-    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
@@ -52,6 +48,8 @@ android {
         freeCompilerArgs += '-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi'
         freeCompilerArgs += '-opt-in=kotlinx.coroutines.FlowPreview'
         freeCompilerArgs += '-opt-in=kotlinx.serialization.ExperimentalSerializationApi'
+        freeCompilerArgs += '-opt-in=androidx.compose.material.ExperimentalMaterialApi'
+        freeCompilerArgs += '-opt-in=androidx.compose.ui.ExperimentalComposeUiApi'
         jvmTarget = '11'
     }
 
