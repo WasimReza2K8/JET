@@ -2,4 +2,7 @@
 <resources>
     <string name="network_error">There is either a problem with internet or server is unavailable</string>
     <string name="unknown_error">We cannot show search result for some unknown error</string>
+    <string name="no_restaurant">No restaurant found</string>
+    <string name="search_restaurant">Search a restaurant</string>
+    <string name="restaurant_list">restaurant list</string>
 </resources>

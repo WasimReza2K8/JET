@@ -36,8 +36,8 @@ class GetDefaultRestaurantsUseCase @Inject constructor(
     private val dispatcherProvider: BaseDispatcherProvider,
 ) {
     operator fun invoke(): Flow<Output<List<Restaurant>>> =
-        repository.getRestaurants().flatMapMerge { list ->
-            listSorting(list)
+        repository.getRestaurants().flatMapMerge { restaurant ->
+            sorting(restaurant)
         }.catch { error ->
             if (error.isNetworkException()) {
                 emit(NetworkError)
@@ -46,7 +46,7 @@ class GetDefaultRestaurantsUseCase @Inject constructor(
             }
         }.flowOn(dispatcherProvider.io())
 
-    private fun listSorting(restaurantList: List<Restaurant>): Flow<Output<List<Restaurant>>> {
+    private fun sorting(restaurantList: List<Restaurant>): Flow<Output<List<Restaurant>>> {
         return getSortedRestaurants(restaurantList, BestMatch)
     }
 }

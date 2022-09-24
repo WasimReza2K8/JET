@@ -1,0 +1,35 @@
+apply from: "$rootDir/buildsystem/android-library.gradle"
+
+android {
+    def config = rootProject.ext
+
+    composeOptions {
+        kotlinCompilerExtensionVersion config.compose_version
+    }
+    buildFeatures {
+        compose true
+    }
+}
+
+dependencies {
+    def commonDependencies = rootProject.ext.commonDependencies
+
+    implementation commonDependencies.compose.ui
+    debugImplementation commonDependencies.compose.uiTooling
+    implementation commonDependencies.compose.foundation
+    implementation commonDependencies.compose.materialDesign
+    implementation commonDependencies.compose.meterialIcon
+    implementation commonDependencies.compose.iconExt
+    implementation commonDependencies.compose.preview
+    implementation commonDependencies.compose.activity
+    implementation commonDependencies.compose.viewModel
+    implementation commonDependencies.compose.animation
+    implementation commonDependencies.compose.flowLayout
+    implementation commonDependencies.compose.composeRuntime
+    implementation commonDependencies.compose.composeRunTimeLiveData
+    debugImplementation commonDependencies.compose.uiTestManifest
+    debugImplementation commonDependencies.compose.customView
+    implementation commonDependencies.compose.composeNavigation
+    implementation commonDependencies.compose.hiltNavigationCompose
+
+}

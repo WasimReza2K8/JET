@@ -17,32 +17,27 @@
 package com.jet.feature.restaurant.di
 
 import com.jet.feature.restaurant.data.repository.RestaurantRepositoryImpl
-import com.jet.feature.restaurant.domain.usecase.GetDefaultRestaurantsUseCase
-import com.jet.feature.restaurant.presentation.RestaurantLauncherImpl
+import com.jet.feature.restaurant.presentation.launcher.RestaurantLauncherImpl
 import com.jet.restaurant.domain.repository.RestaurantRepository
-import com.jet.restaurant.domain.usecase.RestaurantUseCase
-import com.jet.restaurant.presentation.RestaurantLauncher
+import com.jet.restaurant.presentation.launcher.RestaurantFeatureLauncher
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.scopes.ViewModelScoped
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(ViewModelComponent::class)
 interface RestaurantDomainModule {
     @Binds
     fun bindRestaurantRepository(repository: RestaurantRepositoryImpl): RestaurantRepository
-
-  /*  @Binds
-    @ViewModelScoped
-    fun bindRestaurantUseCase(useCase: GetDefaultRestaurantsUseCase): RestaurantUseCase*/
 }
 
 @Module
-@InstallIn(ActivityComponent::class)
+@InstallIn(SingletonComponent::class)
 interface RestaurantPresentationModule {
+    @Singleton
     @Binds
-    fun bindLauncher(launcher: RestaurantLauncherImpl): RestaurantLauncher
+    fun bindLauncher(launcher: RestaurantLauncherImpl): RestaurantFeatureLauncher
 }

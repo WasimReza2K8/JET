@@ -49,11 +49,14 @@ android {
 }
 
 dependencies {
-    implementation project(':modules:feature-restaurant-abstract')
+    implementation project(':modules:feature-search-shared')
+    implementation project(':modules:feature-search')
+    implementation project(':modules:feature-restaurant-shared')
     implementation project(':modules:feature-restaurant')
-
-    def commonDependencies = rootProject.ext.commonDependencies
     implementation project(':core-ui')
+    implementation project(':core-navigation')
+    def commonDependencies = rootProject.ext.commonDependencies
+
     implementation commonDependencies.androidx.coreKtx
     implementation commonDependencies.androidx.appcompat
     implementation commonDependencies.androidx.constraintLayout
@@ -100,6 +103,10 @@ dependencies {
     implementation commonDependencies.compose.flowLayout
     implementation commonDependencies.compose.composeRuntime
     implementation commonDependencies.compose.composeRunTimeLiveData
-    debugImplementation commonDependencies.compose.uiTestManifest
     debugImplementation commonDependencies.compose.customView
+    implementation commonDependencies.compose.composeNavigation
+    implementation commonDependencies.compose.accopanistNavigation
+    // ui test
+    debugImplementation commonDependencies.compose.uiTestManifest
+    androidTestImplementation commonDependencies.compose.uiTestCompose
 }

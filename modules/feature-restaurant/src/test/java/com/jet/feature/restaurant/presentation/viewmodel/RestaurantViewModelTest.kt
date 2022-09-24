@@ -16,8 +16,10 @@
 
 package com.jet.feature.restaurant.presentation.viewmodel
 
+import com.example.core.navigation.Navigator
 import com.example.core.resProvider.ResourceProvider
 import com.example.core.state.Output
+import com.example.core.ui.feature.FeatureProvider
 import com.jet.feature.restaurant.domain.model.SortingType.Newest
 import com.jet.feature.restaurant.domain.usecase.GetDefaultRestaurantsUseCase
 import com.jet.feature.restaurant.domain.usecase.GetSortedRestaurants
@@ -42,23 +44,27 @@ import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
 
 class RestaurantViewModelTest {
     private val getDefaultRestaurantsUseCase: GetDefaultRestaurantsUseCase = mockk(relaxed = true)
     private val getSortedRestaurants: GetSortedRestaurants = mockk(relaxed = true)
+    private val featureProvider: FeatureProvider = mockk(relaxed = true)
     private val resourceProvider: ResourceProvider = mockk {
         every {
             getString(any())
         } returns "mock"
     }
+    private val navigator: Navigator = mockk(relaxed = true)
     private lateinit var viewModel: RestaurantViewModel
 
     private lateinit var testDispatcher: TestDispatcher
@@ -68,6 +74,8 @@ class RestaurantViewModelTest {
             getDefaultRestaurantsUseCase = getDefaultRestaurantsUseCase,
             getSortedRestaurants = getSortedRestaurants,
             resourceProvider = resourceProvider,
+            navigator = navigator,
+            featureProvider = featureProvider,
         )
     }
 
@@ -217,6 +225,30 @@ class RestaurantViewModelTest {
             viewModel.onUiEvent(OnNewestClicked)
 
             assertEquals(expected, viewModel.viewState.value.selectedSortingType)
+        }
+
+    @Test
+    fun `Given empty restaurantList when view model newest clicked the viewState no restaurant found effect`() =
+        runTest {
+            coEvery {
+                getDefaultRestaurantsUseCase()
+            } returns flow { emit(Output.NetworkError) }
+
+            createViewModel()
+
+
+            viewModel.onUiEvent(OnNewestClicked)
+
+            val effectList = mutableListOf<RestaurantContract.Effect>()
+
+            viewModel.effect
+                .onCompletion {
+                    assertThat(effectList.last() is UnknownErrorEffect).isTrue
+                }
+                .take(2)
+                .collectLatest {
+                    effectList.add(it)
+                }
         }
 
     @Test

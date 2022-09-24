@@ -17,7 +17,6 @@ import com.google.accompanist.flowlayout.FlowRow
 @Composable
 fun ChipGroup(
     chips: List<Chip>,
-    //  onChipGroupClickedListener: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -30,7 +29,6 @@ fun ChipGroup(
             chips.forEach { chip ->
                 JetChip(
                     chip = chip,
-                    //onChipClicked = onChipGroupClickedListener,
                 )
             }
         }
@@ -80,11 +78,7 @@ fun OctopusChipGroupDemoCompose() {
                         ),
                     )
                 }
-
-                ChipGroup(
-                    chips = chips,
-                    // onChipGroupClickedListener = chipListener,
-                )
+                ChipGroup(chips = chips)
             }
         }
     }

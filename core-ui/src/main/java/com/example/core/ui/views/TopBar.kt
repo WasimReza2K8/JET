@@ -22,14 +22,21 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.core.ui.R
 import com.example.core.ui.theme.JetTheme
 
 @Composable
@@ -39,7 +46,8 @@ fun TopBar(
     onSearchTextChange: ((String) -> Unit)? = null,
     onClearClick: () -> Unit = {},
     onNavigateUp: (() -> Unit)? = null,
-    searchHint: String = "Search a restaurant",
+    searchHint: String = stringResource(id = R.string.search_restaurant),
+    searchText: String = "",
     actions: @Composable RowScope.() -> Unit = {},
 ) {
     TopAppBar(
@@ -48,10 +56,10 @@ fun TopBar(
             Column {
                 if (onSearchTextChange != null) {
                     SearchText(
-                        modifier = Modifier.padding(vertical = 3.dp),
                         onSearchTextChange = onSearchTextChange,
                         onClearClick = onClearClick,
                         searchHint = searchHint,
+                        searchText = searchText,
                     )
                 } else {
                     Text(
@@ -60,7 +68,6 @@ fun TopBar(
                         maxLines = 1,
                     )
                 }
-
             }
         },
         modifier = modifier,
@@ -82,20 +89,23 @@ fun TopBar(
 
 @Composable
 fun SearchText(
-    value: String = "",
     modifier: Modifier = Modifier,
     onSearchTextChange: ((String) -> Unit),
     onClearClick: () -> Unit = {},
     searchHint: String = "Search a restaurant",
+    searchText: String = "",
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusRequester = remember { FocusRequester() }
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .padding(
-                end = 16.dp
+                end = 16.dp,
             )
+            .focusRequester(focusRequester)
             .then(modifier),
-        value = value,
+        value = searchText,
         onValueChange = onSearchTextChange,
         shape = JetTheme.shape.roundCorner8,
         colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -121,7 +131,6 @@ fun SearchText(
                         contentDescription = null,
                     )
                 }
-
             }
         },
         placeholder = {
@@ -129,13 +138,17 @@ fun SearchText(
         },
         maxLines = 1,
         singleLine = true,
-        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
+        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(
-            onDone = {
-                //keyboardController?.hide()
+            onSearch = {
+                keyboardController?.hide()
             }
         ),
     )
+
+    LaunchedEffect(key1 = Unit) {
+        focusRequester.requestFocus()
+    }
 }
 
 @Preview
@@ -158,16 +171,14 @@ fun TopBarDemo() {
                 "Just Eat",
                 actions = {
                     IconButton(onClick = {}) {
-                        Icon(Icons.Default.Search, contentDescription = "")
+                        Icon(Icons.Default.Search, contentDescription = "Search Icon")
                     }
                 },
             )
             TopBar(
                 "Just Eat",
                 onNavigateUp = {},
-                onSearchTextChange = {
-
-                }
+                onSearchTextChange = {}
             )
         }
     }

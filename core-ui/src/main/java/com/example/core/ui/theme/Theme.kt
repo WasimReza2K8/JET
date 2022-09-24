@@ -15,15 +15,15 @@ import androidx.compose.ui.graphics.Color
 private val color = Color()
 
 private val DarkColorPalette = darkColors(
-    primary = color.Orange200,
-    primaryVariant = color.Orange700,
-    secondary = color.Teal200
+    primary = color.grey500,
+    primaryVariant = color.orange700,
+    secondary = color.teal200
 )
 
 private val LightColorPalette = lightColors(
-    primary = color.Orange500,
-    primaryVariant = color.Orange700,
-    secondary = color.Teal200,
+    primary = color.orange500,
+    primaryVariant = color.orange700,
+    secondary = color.teal200,
     background = Color.White,
     surface = Color.White,
     onPrimary = Color.White,
@@ -102,9 +102,4 @@ object JetTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalSpacings.current
-
-    val snackBarHost: SnackbarHostState
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalSnackBarHostState.current
 }

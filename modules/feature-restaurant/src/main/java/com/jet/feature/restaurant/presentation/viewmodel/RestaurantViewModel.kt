@@ -18,10 +18,13 @@ package com.jet.feature.restaurant.presentation.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.example.core.R.string
+import com.example.core.navigation.Navigator
 import com.example.core.resProvider.ResourceProvider
 import com.example.core.state.Output
 import com.example.core.state.Output.NetworkError
 import com.example.core.state.Output.UnknownError
+import com.example.core.ui.R.string.no_restaurant
+import com.example.core.ui.feature.FeatureProvider
 import com.example.core.viewmodel.BaseViewModel
 import com.jet.feature.restaurant.domain.model.SortingType
 import com.jet.feature.restaurant.domain.model.SortingType.AverageProductPrice
@@ -34,12 +37,9 @@ import com.jet.feature.restaurant.domain.model.SortingType.Popularity
 import com.jet.feature.restaurant.domain.model.SortingType.RatingAverage
 import com.jet.feature.restaurant.domain.usecase.GetDefaultRestaurantsUseCase
 import com.jet.feature.restaurant.domain.usecase.GetSortedRestaurants
-import com.jet.feature.restaurant.presentation.mapper.mapToRestaurantUi
-import com.jet.feature.restaurant.presentation.model.RestaurantUiModel
 import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Effect.NetworkErrorEffect
 import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Effect.UnknownErrorEffect
 import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnAverageProductPriceClicked
-import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnBackButtonClicked
 import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnBestMatchClicked
 import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnDeliveryCostClicked
 import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnDistanceClicked
@@ -47,8 +47,12 @@ import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Even
 import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnNewestClicked
 import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnPopularityClicked
 import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnRatingAverageClicked
+import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnSearchClicked
 import com.jet.feature.restaurant.presentation.viewmodel.RestaurantContract.Event.OnViewModelInit
 import com.jet.restaurant.domain.model.Restaurant
+import com.jet.restaurant.presentation.mapper.mapToRestaurantUi
+import com.jet.restaurant.presentation.model.RestaurantUiModel
+import com.jet.search.presentation.SearchLauncher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
@@ -59,14 +63,18 @@ class RestaurantViewModel @Inject constructor(
     private val getDefaultRestaurantsUseCase: GetDefaultRestaurantsUseCase,
     private val getSortedRestaurants: GetSortedRestaurants,
     private val resourceProvider: ResourceProvider,
+    private val navigator: Navigator,
+    private val featureProvider: FeatureProvider,
 ) : BaseViewModel<RestaurantContract.Event, RestaurantContract.State, RestaurantContract.Effect>() {
+    @Inject
+    lateinit var searchLauncher: SearchLauncher
+
     private lateinit var restaurantList: List<Restaurant>
     override fun provideInitialState() = RestaurantContract.State()
 
     override fun handleEvent(event: RestaurantContract.Event) {
         when (event) {
             OnViewModelInit -> getDefaultRestaurants()
-            OnBackButtonClicked -> {}
             OnAverageProductPriceClicked -> getSortedRestaurants(AverageProductPrice)
             OnBestMatchClicked -> getSortedRestaurants(BestMatch)
             OnDeliveryCostClicked -> getSortedRestaurants(DeliveryCost)
@@ -75,10 +83,16 @@ class RestaurantViewModel @Inject constructor(
             OnNewestClicked -> getSortedRestaurants(Newest)
             OnPopularityClicked -> getSortedRestaurants(Popularity)
             OnRatingAverageClicked -> getSortedRestaurants(RatingAverage)
+            OnSearchClicked -> navigator.navigate(featureProvider.searchLauncher.route())
         }
     }
 
     private fun getSortedRestaurants(sortingType: SortingType) {
+        if (!::restaurantList.isInitialized) {
+            sendEffect(UnknownErrorEffect(resourceProvider.getString(no_restaurant)))
+            return
+        }
+
         viewModelScope.launch {
             getSortedRestaurants(
                 restaurantList,

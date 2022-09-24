@@ -3,45 +3,70 @@ package com.example.wasim
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.core.navigation.Navigator
+import com.example.core.navigation.NavigatorEvent
+import com.example.core.ui.feature.FeatureProvider
 import com.example.core.ui.theme.JetTheme
-import com.jet.restaurant.presentation.RestaurantLauncher
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    // todo add feature launcher
     @Inject
-    lateinit var launcher: RestaurantLauncher
-    private val activityScope = CoroutineScope(Dispatchers.Main)
+    lateinit var navigator: Navigator
+
+    @Inject
+    lateinit var featureProvider: FeatureProvider
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       /* setContent {
+        setContent {
             JetTheme {
-                Text(text = "Hello Compose")
+                AppContent(
+                    rememberNavController(),
+                    navigator,
+                    featureProvider,
+                )
             }
-        }*/
-        setContentView(R.layout.activity_main)
-        activityScope.launch {
-            delay(SPLASH_SCREEN_TIME)
-            launcher.launch(this@MainActivity)
-            finish()
         }
     }
-
-    override fun onDestroy() {
-        activityScope.cancel()
-        super.onDestroy()
-    }
-
-    companion object {
-        private const val SPLASH_SCREEN_TIME = 2000L
-    }
-
 }
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun AppContent(
+    navHostController: NavHostController,
+    navigator: Navigator,
+    featureProvider: FeatureProvider,
+) {
+    JetTheme {
+        val keyboardController = LocalSoftwareKeyboardController.current
+        LaunchedEffect(navHostController) {
+            navigator.destinations.onEach { event ->
+                Timber.d("backQueue = ${navHostController.backQueue.map { "route = ${it.destination.route}" }}")
+                keyboardController?.hide()
+                when (event) {
+                    is NavigatorEvent.Directions -> navHostController.navigate(
+                        event.destination,
+                        event.builder,
+                    ).also { Timber.d("Navigate to ${event.destination}") }
+                    is NavigatorEvent.NavigateUp -> Timber.d("NavigateUp successful = ${navHostController.navigateUp()}")
+                }
+            }.launchIn(this)
+        }
+        AppNavGraph(
+            navController = navHostController,
+            featureProvider = featureProvider,
+        )
+    }
+}
+

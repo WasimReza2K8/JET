@@ -11,5 +11,4 @@ class ResourceProvider @Inject constructor(
     fun getString(@StringRes stringRes: Int): String {
         return context.getString(stringRes)
     }
-
 }

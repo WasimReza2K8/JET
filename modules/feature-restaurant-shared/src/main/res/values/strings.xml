@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="restaurant_min">Min.</string>
+    <string name="restaurant_avg">Avg.</string>
+    <string name="restaurant_euro">€</string>
+    <string name="restaurant_kilo_meter">km</string>
+</resources>

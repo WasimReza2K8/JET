@@ -1,7 +1,7 @@
 package com.jet.feature.restaurant.utils
 
 import com.jet.feature.restaurant.data.dto.RestaurantDto
-import com.jet.feature.restaurant.presentation.model.RestaurantUiModel
+import com.jet.restaurant.presentation.model.RestaurantUiModel
 import com.jet.restaurant.domain.model.Restaurant
 import com.jet.restaurant.domain.model.Restaurant.SortingValues
 import com.jet.restaurant.domain.model.Status.Closed
@@ -12,7 +12,7 @@ val restaurant0 =
     Restaurant(
         id = "1",
         name = "Sushi Bar",
-        status = Open(),
+        status = Open,
         sortingValues = SortingValues(
             bestMatch = 0.0,
             newest = 96.0,
@@ -27,7 +27,7 @@ val restaurant0 =
 
 val restaurant3 =
     restaurant0.copy(
-        status = Open(),
+        status = Open,
         sortingValues = SortingValues(
             bestMatch = 1232.0,
             newest = 63.0,
@@ -42,7 +42,7 @@ val restaurant3 =
 
 val restaurant2 =
     restaurant0.copy(
-        status = OrderAhead(),
+        status = OrderAhead,
         sortingValues = SortingValues(
             bestMatch = 1222.0,
             newest = 93.0,
@@ -56,7 +56,7 @@ val restaurant2 =
     )
 val restaurant5 =
     restaurant0.copy(
-        status = OrderAhead(),
+        status = OrderAhead,
         sortingValues = SortingValues(
             bestMatch = 220.0,
             newest = 193.0,
@@ -71,7 +71,7 @@ val restaurant5 =
 
 val restaurant1 =
     restaurant0.copy(
-        status = Closed(),
+        status = Closed,
         sortingValues = SortingValues(
             bestMatch = 12.0,
             newest = 9.0,
@@ -86,7 +86,7 @@ val restaurant1 =
 
 val restaurant4 =
     restaurant3.copy(
-        status = Closed(),
+        status = Closed,
         sortingValues = SortingValues(
             bestMatch = 1220.0,
             newest = 93.0,
@@ -160,7 +160,7 @@ private val restaurantForUi0 =
     RestaurantUiModel(
         id = "1",
         name = "Sushi Bar",
-        status = Open().value,
+        status = Open.value,
         sortingValues = RestaurantUiModel.SortingValues(
             bestMatch = 0.0,
             newest = 96.0,
@@ -175,7 +175,7 @@ private val restaurantForUi0 =
 
 private val restaurantForUi1 =
     restaurantForUi0.copy(
-        status = Closed().value,
+        status = Closed.value,
         sortingValues = RestaurantUiModel.SortingValues(
             bestMatch = 12.0,
             newest = 9.0,

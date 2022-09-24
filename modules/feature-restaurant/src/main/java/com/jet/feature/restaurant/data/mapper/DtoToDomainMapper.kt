@@ -1,9 +1,6 @@
 package com.jet.feature.restaurant.data.mapper
 
 import com.jet.feature.restaurant.data.dto.RestaurantDto
-import com.jet.feature.restaurant.data.mapper.Status.CLOSED
-import com.jet.feature.restaurant.data.mapper.Status.OPEN
-import com.jet.feature.restaurant.data.mapper.Status.ORDER_AHEAD
 import com.jet.restaurant.domain.model.Restaurant
 import com.jet.restaurant.domain.model.Restaurant.SortingValues
 import com.jet.restaurant.domain.model.Status.Closed
@@ -17,10 +14,10 @@ fun RestaurantDto.mapToRestaurant(): Restaurant =
         name = name,
         status = status.let {
             when (it) {
-                OPEN -> Open()
-                ORDER_AHEAD -> OrderAhead()
-                CLOSED -> Closed()
-                else -> Unknown()
+                Open.value -> Open
+                OrderAhead.value -> OrderAhead
+                Closed.value -> Closed
+                else -> Unknown
             }
         },
         sortingValues = SortingValues(
@@ -34,9 +31,3 @@ fun RestaurantDto.mapToRestaurant(): Restaurant =
             popularity = sortingValues.popularity,
         )
     )
-
-internal object Status {
-    internal const val OPEN = "open"
-    internal const val ORDER_AHEAD = "order ahead"
-    internal const val CLOSED = "closed"
-}

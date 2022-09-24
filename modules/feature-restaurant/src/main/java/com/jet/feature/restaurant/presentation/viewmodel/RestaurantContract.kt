@@ -21,7 +21,7 @@ import com.example.core.viewmodel.ViewEvent
 import com.example.core.viewmodel.ViewState
 import com.jet.feature.restaurant.domain.model.SortingType
 import com.jet.feature.restaurant.domain.model.SortingType.BestMatch
-import com.jet.feature.restaurant.presentation.model.RestaurantUiModel
+import com.jet.restaurant.presentation.model.RestaurantUiModel
 
 object RestaurantContract {
     data class State(
@@ -30,7 +30,7 @@ object RestaurantContract {
     ) : ViewState
 
     sealed interface Event : ViewEvent {
-        object OnViewModelInit : Event // Remove if not used
+        object OnViewModelInit : Event
         object OnBestMatchClicked : Event
         object OnRatingAverageClicked : Event
         object OnDistanceClicked : Event
@@ -39,11 +39,11 @@ object RestaurantContract {
         object OnDeliveryCostClicked : Event
         object OnAverageProductPriceClicked : Event
         object OnNewestClicked : Event
-        object OnBackButtonClicked : Event // Remove if not used
+        object OnSearchClicked : Event
     }
 
     sealed interface Effect : ViewEffect {
-        data class NetworkErrorEffect(val message: String) : Effect // Remove if not used
-        data class UnknownErrorEffect(val message: String) : Effect // Remove if not used
+        data class NetworkErrorEffect(val message: String) : Effect
+        data class UnknownErrorEffect(val message: String) : Effect
     }
 }

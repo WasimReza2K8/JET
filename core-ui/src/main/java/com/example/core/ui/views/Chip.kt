@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.ChipDefaults
 import androidx.compose.material.FilterChip
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,10 +21,10 @@ fun JetChip(
     FilterChip(
         selected = chip.checked,
         onClick = {
-            chip.onCheckedListener()
+            chip.onCheckedListener(chip.checked)
         },
         colors = ChipDefaults.filterChipColors(
-            selectedBackgroundColor = JetTheme.color.Orange500,
+            selectedBackgroundColor = MaterialTheme.colors.primary,
             selectedContentColor = Color.White,
         )
     ) {
@@ -46,7 +47,6 @@ fun PreviewFilterChipEnabled() {
                 ),
             )
         }
-
     }
 }
 
@@ -54,6 +54,5 @@ data class Chip(
     val text: String,
     val id: Int = text.hashCode(),
     val checked: Boolean = false,
-    val onCheckedListener: () -> Unit = {},
+    val onCheckedListener: (Boolean) -> Unit = {},
 )
-

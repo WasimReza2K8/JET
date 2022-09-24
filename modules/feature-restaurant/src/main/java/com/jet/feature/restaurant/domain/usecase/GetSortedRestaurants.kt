@@ -20,54 +20,32 @@ class GetSortedRestaurants @Inject constructor() {
         restaurants: List<Restaurant>,
         sortingType: SortingType,
     ): Flow<Output<List<Restaurant>>> = flow {
-        val sortedRestaurants: List<Restaurant>
-        when (sortingType) {
-            Newest -> {
-                sortedRestaurants = restaurants.sortedWith(
+        emit(
+            Output.Success(
+                restaurants.sortedWith(
                     compareBy<Restaurant> { it.status.priority }
-                        .thenByDescending { it.sortingValues.newest }
+                        .then(getAdditionalComparator(sortingType))
                 )
-            }
-            BestMatch -> {
-                sortedRestaurants = restaurants.sortedWith(
-                    compareBy<Restaurant> { it.status.priority }
-                        .thenByDescending { it.sortingValues.bestMatch }
-                )
-            }
-            MinCost -> {
-                sortedRestaurants = restaurants.sortedWith(
-                    compareBy({ it.status.priority }, { it.sortingValues.minCost })
-                )
-            }
-            DeliveryCost -> {
-                sortedRestaurants = restaurants.sortedWith(
-                    compareBy({ it.status.priority }, { it.sortingValues.deliveryCosts })
-                )
-            }
-            AverageProductPrice -> {
-                sortedRestaurants = restaurants.sortedWith(
-                    compareBy({ it.status.priority }, { it.sortingValues.averageProductPrice })
-                )
-            }
-            Distance -> {
-                sortedRestaurants = restaurants.sortedWith(
-                    compareBy({ it.status.priority }, { it.sortingValues.distance })
-                )
-            }
-            RatingAverage -> {
-                sortedRestaurants = restaurants.sortedWith(
-                    compareBy<Restaurant> { it.status.priority }
-                        .thenByDescending { it.sortingValues.ratingAverage }
-                )
-            }
-            Popularity -> {
-                sortedRestaurants = restaurants.sortedWith(
-                    compareBy<Restaurant> { it.status.priority }
-                        .thenByDescending { it.sortingValues.popularity }
-                )
-            }
-        }
-        emit(Output.Success(sortedRestaurants))
+            )
+        )
     }
-}
 
+    private fun getAdditionalComparator(sortingType: SortingType): Comparator<Restaurant> =
+        when (sortingType) {
+            Newest -> compareByDescending { it.sortingValues.newest }
+
+            BestMatch -> compareByDescending { it.sortingValues.bestMatch }
+
+            MinCost -> compareBy { it.sortingValues.minCost }
+
+            DeliveryCost -> compareBy { it.sortingValues.deliveryCosts }
+
+            AverageProductPrice -> compareBy { it.sortingValues.averageProductPrice }
+
+            Distance -> compareBy { it.sortingValues.distance }
+
+            RatingAverage -> compareByDescending { it.sortingValues.ratingAverage }
+
+            Popularity -> compareByDescending { it.sortingValues.popularity }
+        }
+}

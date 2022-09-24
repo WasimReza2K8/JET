@@ -1,0 +1,6 @@
+apply from: "$rootDir/buildsystem/android-library.gradle"
+
+dependencies {
+    def commonDependencies = rootProject.ext.commonDependencies
+    implementation commonDependencies.compose.composeNavigation
+}

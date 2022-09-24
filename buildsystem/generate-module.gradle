@@ -47,8 +47,8 @@ private void generateAbstractModule(LinkedHashMap<String, Object> tokens, featur
 
         moduleName.metaClass.toSnakeCase = { replaceAll(/([A-Z])/, /_$1/).toLowerCase().replaceAll(/^_/, '') }
 
-        def templateDirPath = rootProject.file("modules/.module-template/abstract")
-        def abstractDirPath = rootProject.file("modules/feature-${tokens.placeholderlowercase}-abstract")
+        def templateDirPath = rootProject.file("modules/.module-template/shared")
+        def abstractDirPath = rootProject.file("modules/feature-${tokens.placeholderlowercase}-shared")
 
         from templateDirPath
         into abstractDirPath

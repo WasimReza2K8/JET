@@ -22,10 +22,12 @@ ext {
     compose_version = "1.2.0"
     compose_activity_version = "1.5.1"
     compose_viewmodel_version = "2.4.1"
-    flow_layout_version = '0.23.1'
+    accompanist_version = '0.23.1'
     compose_animation_version = '1.1.1'
     compose_runtime_version = '1.1.1'
     custom_view_version = "1.0.0"
+    compose_navigation = "2.5.2"
+    hilt_navigation_compose = "1.0.0"
     //dev tool
     detekt_version = "1.19.0"
     chucker_version = "3.5.2"
@@ -90,11 +92,15 @@ ext {
                     activity              : "androidx.activity:activity-compose:${compose_activity_version}",
                     viewModel             : "androidx.lifecycle:lifecycle-viewmodel-compose:${lifecycle_version}",
                     animation             : "androidx.compose.animation:animation:${compose_animation_version}",
-                    flowLayout            : "com.google.accompanist:accompanist-flowlayout:${flow_layout_version}",
+                    flowLayout            : "com.google.accompanist:accompanist-flowlayout:${accompanist_version}",
                     composeRuntime        : "androidx.compose.runtime:runtime:${compose_version}",
                     composeRunTimeLiveData: "androidx.compose.runtime:runtime-livedata:${compose_version}",
-                    customView            : "androidx.customview:customview-poolingcontainer:${custom_view_version}}",
-                    uiTestManifest        : "androidx.compose.ui:ui-test-manifest:${compose_version}"
+                    customView            : "androidx.customview:customview-poolingcontainer:${custom_view_version}",
+                    uiTestManifest        : "androidx.compose.ui:ui-test-manifest:${compose_version}",
+                    composeNavigation     : "androidx.navigation:navigation-compose:${compose_navigation}",
+                    hiltNavigationCompose : "androidx.hilt:hilt-navigation-compose:${hilt_navigation_compose}",
+                    accopanistNavigation  : "com.google.accompanist:accompanist-navigation-animation:${accompanist_version}",
+                    uiTestCompose         : "androidx.compose.ui:ui-test-junit4:${compose_version}"
             ],
 
             other    : [
