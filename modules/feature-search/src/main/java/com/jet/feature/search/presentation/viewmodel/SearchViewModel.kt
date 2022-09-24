@@ -29,17 +29,18 @@ import com.jet.feature.search.domain.usecase.SearchUseCase
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Effect.NetworkErrorEffect
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Effect.UnknownErrorEffect
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnBackButtonClicked
+import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnInitViewModel
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnQueryClearClicked
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnSearch
 import com.jet.feature.search.presentation.viewmodel.SearchContract.State
 import com.jet.restaurant.presentation.mapper.mapToRestaurantUi
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -52,36 +53,45 @@ class SearchViewModel @Inject constructor(
 
     override fun provideInitialState() = State()
 
+    private val searchQuery: Channel<String> = Channel()
+
+    init {
+        onUiEvent(OnInitViewModel)
+    }
+
     override fun handleEvent(event: SearchContract.Event) {
         when (event) {
+            is OnInitViewModel -> startQuery()
             is OnSearch -> {
                 updateState { copy(query = event.query) }
-                startQuery(event.query)
+                searchQuery.trySend(event.query).isSuccess
             }
             OnBackButtonClicked -> {
                 navigator.navigateUp()
             }
-            OnQueryClearClicked -> updateState { copy(query = "") }
+            OnQueryClearClicked -> updateState { copy(query = "", restaurants = emptyList()) }
         }
     }
 
-    private fun startQuery(query: String) {
+    private fun startQuery() {
         viewModelScope.launch {
-            flowOf(query)
+            searchQuery
+                .receiveAsFlow()
                 .debounce(DEBOUNCE_TIME)
-                .filter {
-                    updateState {
-                        copy(
-                            noResultFoundText = "",
-                            restaurants = emptyList(),
-                        )
+                .distinctUntilChanged()
+                .filter { query ->
+                    if (query.isEmpty()) {
+                        updateState {
+                            copy(
+                                noResultFoundText = "",
+                                restaurants = emptyList(),
+                            )
+                        }
+                        return@filter false
+                    } else {
+                        return@filter true
                     }
-                    return@filter it.isNotEmpty()
                 }
-                .shareIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed()
-                )
                 .flatMapLatest { query ->
                     searchUseCase(query)
                 }.collect { output ->

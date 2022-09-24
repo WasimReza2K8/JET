@@ -19,7 +19,6 @@ package com.jet.feature.restaurant.presentation.viewmodel
 import com.example.core.navigation.Navigator
 import com.example.core.resProvider.ResourceProvider
 import com.example.core.state.Output
-import com.example.core.ui.feature.FeatureProvider
 import com.jet.feature.restaurant.domain.model.SortingType.Newest
 import com.jet.feature.restaurant.domain.usecase.GetDefaultRestaurantsUseCase
 import com.jet.feature.restaurant.domain.usecase.GetSortedRestaurants
@@ -37,6 +36,7 @@ import com.jet.feature.restaurant.utils.restaurantsForUViewModelSorted
 import com.jet.feature.restaurant.utils.restaurantsForUi
 import com.jet.feature.restaurant.utils.restaurantsForUiSorted
 import com.jet.feature.restaurant.utils.restaurantsForViewModel
+import com.jet.search.presentation.SearchLauncher
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
@@ -58,7 +58,7 @@ import org.junit.Test
 class RestaurantViewModelTest {
     private val getDefaultRestaurantsUseCase: GetDefaultRestaurantsUseCase = mockk(relaxed = true)
     private val getSortedRestaurants: GetSortedRestaurants = mockk(relaxed = true)
-    private val featureProvider: FeatureProvider = mockk(relaxed = true)
+    private val searchLauncher: SearchLauncher = mockk(relaxed = true)
     private val resourceProvider: ResourceProvider = mockk {
         every {
             getString(any())
@@ -75,7 +75,7 @@ class RestaurantViewModelTest {
             getSortedRestaurants = getSortedRestaurants,
             resourceProvider = resourceProvider,
             navigator = navigator,
-            featureProvider = featureProvider,
+            searchLauncher = searchLauncher,
         )
     }
 

@@ -1,4 +1,4 @@
-package com.example.core.ui.views
+package com.jet.restaurant.presentation.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.core.ui.R
 import com.example.core.ui.R.drawable
 import com.example.core.ui.theme.JetTheme
 import com.example.core.ui.theme.JetTheme.elevation

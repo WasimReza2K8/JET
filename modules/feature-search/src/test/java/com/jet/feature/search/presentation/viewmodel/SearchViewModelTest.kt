@@ -24,6 +24,7 @@ import com.example.core.state.Output.UnknownError
 import com.jet.feature.search.domain.usecase.SearchUseCase
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Effect.NetworkErrorEffect
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Effect.UnknownErrorEffect
+import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnQueryClearClicked
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnSearch
 import com.jet.feature.search.utils.restaurantsForUi
 import com.jet.feature.search.utils.restaurantsForViewModel
@@ -80,10 +81,7 @@ class SearchViewModelTest {
         runTest {
             val expected = emptyList<RestaurantUiModel>()
             val given = Output.Success(emptyList<Restaurant>())
-
-            coEvery {
-                searchUseCase("de")
-            } returns flow { emit(given) }
+            initSuccessReturningMock(given)
 
             viewModel.onUiEvent(OnSearch("de"))
             advanceTimeBy(1000)
@@ -94,10 +92,7 @@ class SearchViewModelTest {
     fun `Given valid query when onSearch starts return no restaurants text not empty`() =
         runTest {
             val given = Output.Success(emptyList<Restaurant>())
-
-            coEvery {
-                searchUseCase("de")
-            } returns flow { emit(given) }
+            initSuccessReturningMock(given)
 
             viewModel.onUiEvent(OnSearch("de"))
             advanceTimeBy(1000)
@@ -109,17 +104,14 @@ class SearchViewModelTest {
         runTest {
             val expected = restaurantsForUi
             val given = Output.Success(restaurantsForViewModel)
-            coEvery {
-                searchUseCase("de")
-            } returns flow { emit(given) }
-
+            initSuccessReturningMock(given)
             viewModel.onUiEvent(OnSearch("de"))
             advanceTimeBy(1000)
             assertEquals(expected, viewModel.viewState.value.restaurants)
         }
 
     @Test
-    fun `Given double query when onSearch use case called single time`() =
+    fun `Given changing query when onSearch use case called single time`() =
         runTest {
             val given = Output.Success(restaurantsForViewModel)
             coEvery {
@@ -130,7 +122,7 @@ class SearchViewModelTest {
             viewModel.onUiEvent(OnSearch("de"))
             viewModel.onUiEvent(OnSearch("dev"))
             advanceTimeBy(1000)
-            verify(exactly = 1) { searchUseCase("dev") }
+            verify(exactly = 1) { searchUseCase(any()) }
         }
 
     @Test
@@ -145,6 +137,14 @@ class SearchViewModelTest {
         runTest {
             initGettingEmptyQuery()
             assertThat(viewModel.viewState.value.restaurants.isEmpty()).isTrue
+        }
+
+    @Test
+    fun `When onQueryClearClicked view state emit with empty list and query`() =
+        runTest {
+            viewModel.onUiEvent(OnQueryClearClicked)
+            assertThat(viewModel.viewState.value.restaurants.isEmpty()).isTrue
+            assertThat(viewModel.viewState.value.query).isEmpty()
         }
 
     @Test
@@ -177,6 +177,13 @@ class SearchViewModelTest {
             viewModel.effect.take(1).collectLatest {
                 assertEquals(expected, it)
             }
+        }
+
+    private fun initSuccessReturningMock(given: Output<List<Restaurant>>) =
+        runTest {
+            coEvery {
+                searchUseCase("de")
+            } returns flow { emit(given) }
         }
 
     private fun initGettingEmptyQuery() =

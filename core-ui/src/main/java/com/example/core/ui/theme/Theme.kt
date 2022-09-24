@@ -2,12 +2,10 @@ package com.example.core.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.graphics.Color
@@ -50,8 +48,6 @@ private val LocalElevations = compositionLocalOf<Elevation> {
 private val LocalShapes = compositionLocalOf<Shape> {
     error("No shape provided! Make sure to wrap all components in an JetTheme.")
 }
-private val LocalSnackBarHostState: ProvidableCompositionLocal<SnackbarHostState> =
-    compositionLocalOf { error("No SnackbarHostState provided") }
 
 @Composable
 fun JetTheme(

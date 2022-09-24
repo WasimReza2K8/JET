@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-apply from: "$rootDir/buildsystem/android-library.gradle"
+apply from: "$rootDir/buildsystem/android-compose-library.gradle"
 
 dependencies {
     implementation commonDependencies.jetbrains.coroutine
     implementation project(path: ':core-navigation')
     implementation project(path: ':core')
+    implementation project(path: ':core-ui')
 }

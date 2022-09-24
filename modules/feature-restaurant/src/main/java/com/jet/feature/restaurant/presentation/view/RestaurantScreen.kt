@@ -22,7 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.ui.theme.JetTheme
 import com.example.core.ui.views.Chip
 import com.example.core.ui.views.ChipGroup
-import com.example.core.ui.views.RestaurantList
+import com.jet.restaurant.presentation.views.RestaurantList
 import com.example.core.ui.views.TopBar
 import com.jet.feature.restaurant.R.string
 import com.jet.feature.restaurant.domain.model.SortingType.BestMatch

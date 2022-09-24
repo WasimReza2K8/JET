@@ -1,6 +1,5 @@
 package com.jet.feature.search.presentation.launcher
 
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.jet.feature.search.presentation.view.SearchScreen
@@ -12,10 +11,7 @@ class SearchLauncherImpl @Inject constructor() : SearchLauncher {
 
     override fun route() = route
 
-    override fun registerGraph(
-        navGraphBuilder: NavGraphBuilder,
-        modifier: Modifier,
-    ) {
+    override fun registerGraph(navGraphBuilder: NavGraphBuilder) {
         navGraphBuilder.composable(route) {
             SearchScreen()
         }

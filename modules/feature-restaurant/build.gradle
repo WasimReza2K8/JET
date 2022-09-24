@@ -19,12 +19,6 @@ dependencies {
     implementation project(':modules:feature-search-shared')
 
     def commonDependencies = rootProject.ext.commonDependencies
-
-    implementation commonDependencies.androidx.coreKtx
-    implementation commonDependencies.androidx.appcompat
-    implementation commonDependencies.androidx.lifecycle
-
-    implementation commonDependencies.google.material
     implementation commonDependencies.jetbrains.coroutine
     implementation commonDependencies.jetbrains.kotlinSerialization
 }

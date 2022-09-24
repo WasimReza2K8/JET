@@ -16,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.ui.theme.JetTheme
-import com.example.core.ui.views.RestaurantList
 import com.example.core.ui.views.TopBar
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Effect
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Effect.NetworkErrorEffect
@@ -27,6 +26,7 @@ import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnQuer
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnSearch
 import com.jet.feature.search.presentation.viewmodel.SearchContract.State
 import com.jet.feature.search.presentation.viewmodel.SearchViewModel
+import com.jet.restaurant.presentation.views.RestaurantList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach

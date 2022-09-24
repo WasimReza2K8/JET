@@ -11,7 +11,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.core.navigation.Navigator
 import com.example.core.navigation.NavigatorEvent
-import com.example.core.ui.feature.FeatureProvider
 import com.example.core.ui.theme.JetTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -52,14 +51,16 @@ fun AppContent(
         val keyboardController = LocalSoftwareKeyboardController.current
         LaunchedEffect(navHostController) {
             navigator.destinations.onEach { event ->
-                Timber.d("backQueue = ${navHostController.backQueue.map { "route = ${it.destination.route}" }}")
+                Timber.d(
+                    "backQueue = ${navHostController.backQueue.map { "route = ${it.destination.route}" }}"
+                )
                 keyboardController?.hide()
                 when (event) {
                     is NavigatorEvent.Directions -> navHostController.navigate(
                         event.destination,
                         event.builder,
-                    ).also { Timber.d("Navigate to ${event.destination}") }
-                    is NavigatorEvent.NavigateUp -> Timber.d("NavigateUp successful = ${navHostController.navigateUp()}")
+                    ).also { event.destination }
+                    is NavigatorEvent.NavigateUp -> navHostController.navigateUp()
                 }
             }.launchIn(this)
         }
@@ -69,4 +70,3 @@ fun AppContent(
         )
     }
 }
-

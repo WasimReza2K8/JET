@@ -1,4 +1,4 @@
-package com.example.core.ui.feature
+package com.example.wasim
 
 import com.jet.restaurant.presentation.launcher.RestaurantFeatureLauncher
 import com.jet.search.presentation.SearchLauncher

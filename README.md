@@ -21,7 +21,7 @@ suspend till the channel buffer becomes full, waiting for a subscriber to appear
 navigation event which is handled by main activity.
 
 Inside every feature module, the packages representing clean code architecture layers (presentation, domain, data). 
-The presentation layer is responsible for UI, UI related logic and holding UI states. Composable screens, view model,  
+The presentation layer is responsible for drawing UI, UI related logic and holding UI states. Composable screens, view model,  
 UI data models and mappers are part of the presentation layer. Domain layer is responsible for business logic. Different business
 use cases and domain models are implemented in this layer. Data layer is responsible for providing data. Repository 
 implementation, datasource (internal and external) should be part of data layer. 

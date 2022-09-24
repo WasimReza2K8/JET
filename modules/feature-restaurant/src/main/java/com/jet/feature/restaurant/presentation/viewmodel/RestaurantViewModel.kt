@@ -24,7 +24,6 @@ import com.example.core.state.Output
 import com.example.core.state.Output.NetworkError
 import com.example.core.state.Output.UnknownError
 import com.example.core.ui.R.string.no_restaurant
-import com.example.core.ui.feature.FeatureProvider
 import com.example.core.viewmodel.BaseViewModel
 import com.jet.feature.restaurant.domain.model.SortingType
 import com.jet.feature.restaurant.domain.model.SortingType.AverageProductPrice
@@ -64,10 +63,8 @@ class RestaurantViewModel @Inject constructor(
     private val getSortedRestaurants: GetSortedRestaurants,
     private val resourceProvider: ResourceProvider,
     private val navigator: Navigator,
-    private val featureProvider: FeatureProvider,
+    private val searchLauncher: SearchLauncher,
 ) : BaseViewModel<RestaurantContract.Event, RestaurantContract.State, RestaurantContract.Effect>() {
-    @Inject
-    lateinit var searchLauncher: SearchLauncher
 
     private lateinit var restaurantList: List<Restaurant>
     override fun provideInitialState() = RestaurantContract.State()
@@ -83,7 +80,7 @@ class RestaurantViewModel @Inject constructor(
             OnNewestClicked -> getSortedRestaurants(Newest)
             OnPopularityClicked -> getSortedRestaurants(Popularity)
             OnRatingAverageClicked -> getSortedRestaurants(RatingAverage)
-            OnSearchClicked -> navigator.navigate(featureProvider.searchLauncher.route())
+            OnSearchClicked -> navigator.navigate(searchLauncher.route())
         }
     }
 

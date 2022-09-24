@@ -1,6 +1,1 @@
 apply from: "$rootDir/buildsystem/android-compose-library.gradle"
-
-dependencies {
-    implementation project(':modules:feature-search-shared')
-    implementation project(':modules:feature-restaurant-shared')
-}

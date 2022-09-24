@@ -55,15 +55,12 @@ dependencies {
     implementation project(':modules:feature-restaurant')
     implementation project(':core-ui')
     implementation project(':core-navigation')
+    implementation project(path: ':core')
+    androidTestImplementation project(path: ':core')
     def commonDependencies = rootProject.ext.commonDependencies
 
     implementation commonDependencies.androidx.coreKtx
     implementation commonDependencies.androidx.appcompat
-    implementation commonDependencies.androidx.constraintLayout
-
-    //navigation
-    implementation commonDependencies.androidx.navigationFragment
-    implementation commonDependencies.androidx.navigationKtx
 
     //Hilt
     implementation commonDependencies.google.hiltAndroid
@@ -73,20 +70,6 @@ dependencies {
     implementation commonDependencies.other.timber
     debugImplementation developmentDependencies.leakcanary
 
-    // androidTest
-    def commonAndroidTestDependencies = rootProject.ext.commonAndroidTestDependencies
-    def commonTestDependencies = rootProject.ext.commonTestDependencies
-    androidTestImplementation commonAndroidTestDependencies.espressoCore
-    androidTestImplementation commonAndroidTestDependencies.espressoContrib
-    androidTestImplementation commonAndroidTestDependencies.espressoIntent
-    androidTestImplementation commonAndroidTestDependencies.testRunner
-    androidTestImplementation commonAndroidTestDependencies.androidxTestExtJunit
-    androidTestImplementation commonAndroidTestDependencies.androidxTestExtJunitKtx
-    androidTestImplementation commonAndroidTestDependencies.hiltTest
-    kaptAndroidTest commonDependencies.google.hiltCompiler
-    androidTestImplementation commonTestDependencies.coroutineTest
-    androidTestImplementation commonDependencies.androidx.navigationFragment
-    debugImplementation commonAndroidTestDependencies.fragmentTest
 
 
     // compose
@@ -105,8 +88,23 @@ dependencies {
     implementation commonDependencies.compose.composeRunTimeLiveData
     debugImplementation commonDependencies.compose.customView
     implementation commonDependencies.compose.composeNavigation
-    implementation commonDependencies.compose.accopanistNavigation
-    // ui test
+
+    // androidTest
     debugImplementation commonDependencies.compose.uiTestManifest
     androidTestImplementation commonDependencies.compose.uiTestCompose
+    
+    def commonAndroidTestDependencies = rootProject.ext.commonAndroidTestDependencies
+    def commonTestDependencies = rootProject.ext.commonTestDependencies
+    androidTestImplementation commonAndroidTestDependencies.espressoCore
+    androidTestImplementation commonAndroidTestDependencies.espressoContrib
+    androidTestImplementation commonAndroidTestDependencies.espressoIntent
+    androidTestImplementation commonAndroidTestDependencies.testRunner
+    androidTestImplementation commonAndroidTestDependencies.androidxTestExtJunit
+    androidTestImplementation commonAndroidTestDependencies.androidxTestExtJunitKtx
+    androidTestImplementation commonAndroidTestDependencies.hiltTest
+    kaptAndroidTest commonDependencies.google.hiltCompiler
+    androidTestImplementation commonTestDependencies.coroutineTest
+    androidTestImplementation commonDependencies.androidx.navigationFragment
+    debugImplementation commonAndroidTestDependencies.fragmentTest
+
 }

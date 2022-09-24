@@ -32,6 +32,7 @@ object SearchContract {
         object OnBackButtonClicked : Event
         data class OnSearch(val query: String) : Event
         object OnQueryClearClicked : Event
+        object OnInitViewModel : Event
     }
 
     sealed interface Effect : ViewEffect {

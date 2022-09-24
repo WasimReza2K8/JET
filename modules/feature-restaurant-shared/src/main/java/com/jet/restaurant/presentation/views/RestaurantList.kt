@@ -1,4 +1,4 @@
-package com.example.core.ui.views
+package com.jet.restaurant.presentation.views
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement

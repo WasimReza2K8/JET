@@ -1,6 +1,5 @@
 package com.jet.feature.restaurant.presentation.launcher
 
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.jet.feature.restaurant.presentation.view.RestaurantScreen
@@ -12,10 +11,7 @@ class RestaurantLauncherImpl @Inject constructor() : RestaurantFeatureLauncher {
 
     override fun route() = route
 
-    override fun registerGraph(
-        navGraphBuilder: NavGraphBuilder,
-        modifier: Modifier,
-    ) {
+    override fun registerGraph(navGraphBuilder: NavGraphBuilder) {
         navGraphBuilder.composable(route) {
             RestaurantScreen()
         }

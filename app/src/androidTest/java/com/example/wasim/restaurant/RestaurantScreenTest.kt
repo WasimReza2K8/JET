@@ -9,6 +9,7 @@ import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.example.core.R
+import com.example.core.di.CoreModule
 import com.example.core.ui.R.string.restaurant_list
 import com.example.wasim.MainActivity
 import com.example.wasim.restaurant.FakeRestaurantRepository.ReturnType.NetworkException
