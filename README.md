@@ -1,5 +1,5 @@
 # Implementation documentation
-![dependency_graph](https://user-images.githubusercontent.com/26042899/192104564-0ef41403-8e14-4384-a975-420ea65a725d.png)
+![dependency_graph](images/dependency_graph.png)
 
 In this code base, I implemented single activity, compose only, multi-module solution for sorting and searching restaurants. 
 The above dependency graph is showing which module are depending on which module. Core modules are not depending on any other 
