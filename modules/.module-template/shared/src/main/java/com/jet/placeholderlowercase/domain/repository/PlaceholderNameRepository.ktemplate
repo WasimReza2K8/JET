@@ -16,6 +16,10 @@
 
 package com.jet.@placeholderlowercase@.domain.repository
 
+/*
+ * Delete this file if we do not want to share
+ */
+
 interface @PlaceholderName@Repository{
 
 }

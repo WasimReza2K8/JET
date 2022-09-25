@@ -18,6 +18,5 @@ apply from: "$rootDir/buildsystem/android-library.gradle"
 
 dependencies {
     implementation commonDependencies.jetbrains.coroutine
-    implementation project(path: ':core')
-    implementation project(path: ':core-ui')
+    implementation project(path: ':core-navigation')
 }

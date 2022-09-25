@@ -103,7 +103,6 @@ private fun RestaurantScreenImpl(
             ChipGroup(
                 chips = chips
             )
-
             RestaurantList(restaurants = state.restaurantList)
         }
     }
