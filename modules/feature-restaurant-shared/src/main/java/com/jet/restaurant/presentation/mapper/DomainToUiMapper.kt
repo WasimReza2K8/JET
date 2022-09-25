@@ -18,23 +18,23 @@ fun Restaurant.mapToRestaurantUi(resourceProvider: ResourceProvider) =
             bestMatch = sortingValues.bestMatch,
             newest = sortingValues.newest,
             averageProductPrice = getStringHavingPrefixAndPostfix(
-                resourceProvider.getString(R.string.restaurant_avg),
+                resourceProvider.getString(R.string.restaurant_shared_avg),
                 centToEuro(sortingValues.averageProductPrice),
-                resourceProvider.getString(R.string.restaurant_euro),
+                resourceProvider.getString(R.string.restaurant_shared_euro),
             ),
             minCost = getStringHavingPrefixAndPostfix(
-                resourceProvider.getString(R.string.restaurant_min),
+                resourceProvider.getString(R.string.restaurant_shared_min),
                 centToEuro(sortingValues.minCost),
-                resourceProvider.getString(R.string.restaurant_euro),
+                resourceProvider.getString(R.string.restaurant_shared_euro),
             ),
 
             deliveryCosts = getStringHavingPostfix(
                 centToEuro(sortingValues.deliveryCosts),
-                resourceProvider.getString(R.string.restaurant_euro),
+                resourceProvider.getString(R.string.restaurant_shared_euro),
             ),
             distance = getStringHavingPostfix(
                 meterToKm(sortingValues.distance),
-                resourceProvider.getString(R.string.restaurant_kilo_meter),
+                resourceProvider.getString(R.string.restaurant_shared_kilo_meter),
             ),
             ratingAverage = sortingValues.ratingAverage,
             popularity = sortingValues.popularity,

@@ -18,11 +18,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.core.ui.R.drawable
 import com.example.core.ui.theme.JetTheme
 import com.example.core.ui.theme.JetTheme.elevation
 import com.example.core.ui.theme.JetTheme.spacing
+import com.jet.restaurant.R.string
 import com.jet.restaurant.presentation.model.RestaurantUiModel
 import com.jet.restaurant.presentation.model.RestaurantUiModel.SortingValues
 
@@ -48,7 +50,7 @@ fun RestaurantItem(
             Image(
                 modifier = modifier.padding(spacing.spacing16),
                 painter = painterResource(drawable.ic_storefront),
-                contentDescription = "Restaurant Image"
+                contentDescription = stringResource(string.restaurant_shared_image)
             )
             RestaurantContent(item = item)
         }
@@ -154,30 +156,6 @@ fun ImageTextItem(
     }
 }
 
-@Preview
-@Composable
-fun ItemPreview() {
-    JetTheme {
-        RestaurantItem(
-            item = RestaurantUiModel(
-                id = "124s",
-                name = "Sushi Bar",
-                status = "Open",
-                sortingValues = SortingValues(
-                    bestMatch = 123.0,
-                    newest = 3456.0,
-                    ratingAverage = 4.0,
-                    distance = "1234.0",
-                    popularity = 1278.0,
-                    averageProductPrice = "12.0",
-                    deliveryCosts = "200.0",
-                    minCost = "1234.0",
-                )
-            )
-        )
-    }
-}
-
 private val item = RestaurantUiModel(
     id = "124s",
     name = "Sushi Bar",
@@ -193,6 +171,14 @@ private val item = RestaurantUiModel(
         minCost = "1234.0",
     )
 )
+
+@Preview
+@Composable
+fun ItemPreview() {
+    JetTheme {
+        RestaurantItem(item = item)
+    }
+}
 
 @Preview
 @Composable

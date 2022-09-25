@@ -82,7 +82,7 @@ private fun RestaurantScreenImpl(
                             sendEvent(OnSearchClicked)
                         }
                     ) {
-                        Icon(Icons.Default.Search, contentDescription = "Search Icon")
+                        Icon(Icons.Default.Search, contentDescription = stringResource(string.restaurant_search_icon))
                     }
                 },
             )

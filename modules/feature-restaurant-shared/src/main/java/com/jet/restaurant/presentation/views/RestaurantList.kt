@@ -57,7 +57,7 @@ private fun getPadding(): Dp {
 
     return when (orientation) {
         Configuration.ORIENTATION_LANDSCAPE -> {
-            JetTheme.spacing.spacing64
+            JetTheme.spacing.spacing80
         }
         else -> {
             JetTheme.spacing.spacing0

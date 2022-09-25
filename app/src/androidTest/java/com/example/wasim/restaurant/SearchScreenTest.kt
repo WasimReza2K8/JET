@@ -1,6 +1,8 @@
 package com.example.wasim.restaurant
 
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onChildren
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -16,6 +18,7 @@ import com.example.core.ui.R.string.restaurant_list
 import com.example.wasim.MainActivity
 import com.example.wasim.restaurant.FakeRestaurantRepository.ReturnType.NetworkException
 import com.example.wasim.restaurant.FakeRestaurantRepository.ReturnType.Valid
+import com.jet.feature.restaurant.R.string.restaurant_search_icon
 import com.jet.feature.restaurant.di.RestaurantDomainModule
 import com.jet.restaurant.domain.repository.RestaurantRepository
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -50,12 +53,13 @@ class SearchScreenTest {
     }
 
     @Test
-    fun given_valid_response_when_activity_opened_list_shown() {
+    fun given_valid_response_when_search_list_shown() {
         (fakeRepository as? FakeRestaurantRepository)?.setReturnType(Valid)
 
         androidComposeTestRule.apply {
             val text = activity.getString(string.search_restaurant)
-            onNodeWithContentDescription("Search Icon").performClick()
+            val contentDescription = activity.getString(restaurant_search_icon)
+            onNodeWithContentDescription(contentDescription).performClick()
             onNodeWithText(text).performTextInput("de")
             AsyncTimer.start()
             waitUntil(
@@ -69,12 +73,50 @@ class SearchScreenTest {
     }
 
     @Test
+    fun given_valid_response_when_search_with_empty_query_no_list_shown() {
+        (fakeRepository as? FakeRestaurantRepository)?.setReturnType(Valid)
+
+        androidComposeTestRule.apply {
+            val text = activity.getString(string.search_restaurant)
+            val contentDescription = activity.getString(restaurant_search_icon)
+            onNodeWithContentDescription(contentDescription).performClick()
+            onNodeWithText(text).performTextInput("")
+            AsyncTimer.start()
+            waitUntil(
+                condition = { AsyncTimer.expired },
+                timeoutMillis = 1000
+            )
+            onNodeWithTag(activity.getString(restaurant_list)).assertIsNotDisplayed()
+        }
+    }
+
+    @Test
+    fun given_valid_response_when_search_with_query_no_list_shown() {
+        (fakeRepository as? FakeRestaurantRepository)?.setReturnType(Valid)
+
+        androidComposeTestRule.apply {
+            val text = activity.getString(string.search_restaurant)
+            val contentDescription = activity.getString(restaurant_search_icon)
+            onNodeWithContentDescription(contentDescription).performClick()
+            onNodeWithText(text).performTextInput("qu")
+            AsyncTimer.start()
+            waitUntil(
+                condition = { AsyncTimer.expired },
+                timeoutMillis = 1000
+            )
+            val result = activity.getString(string.no_restaurant)
+            onNodeWithText(result).assertIsDisplayed()
+        }
+    }
+
+    @Test
     fun given_network_error_response_when_activity_opened_snackBar_shown() {
         (fakeRepository as? FakeRestaurantRepository)?.setReturnType(NetworkException)
 
         androidComposeTestRule.apply {
             val searchText = activity.getString(string.search_restaurant)
-            onNodeWithContentDescription("Search Icon").performClick()
+            val contentDescription = activity.getString(restaurant_search_icon)
+            onNodeWithContentDescription(contentDescription).performClick()
             onNodeWithText(searchText).performTextInput("de")
             onNodeWithTag(activity.getString(restaurant_list))
                 .onChildren()
@@ -90,7 +132,8 @@ class SearchScreenTest {
 
         androidComposeTestRule.apply {
             val searchText = activity.getString(string.search_restaurant)
-            onNodeWithContentDescription("Search Icon").performClick()
+            val contentDescription = activity.getString(restaurant_search_icon)
+            onNodeWithContentDescription(contentDescription).performClick()
             onNodeWithText(searchText).performTextInput("de")
             onNodeWithTag(activity.getString(restaurant_list))
                 .onChildren()

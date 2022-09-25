@@ -16,6 +16,10 @@
 
 apply from: "$rootDir/buildsystem/android-compose-library.gradle"
 
+android {
+    resourcePrefix 'restaurant_shared'
+}
+
 dependencies {
     implementation commonDependencies.jetbrains.coroutine
     implementation project(path: ':core-navigation')
