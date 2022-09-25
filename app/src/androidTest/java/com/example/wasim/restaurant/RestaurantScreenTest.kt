@@ -9,7 +9,6 @@ import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.example.core.R
-import com.example.core.di.CoreModule
 import com.example.core.ui.R.string.restaurant_list
 import com.example.wasim.MainActivity
 import com.example.wasim.restaurant.FakeRestaurantRepository.ReturnType.NetworkException
@@ -49,7 +48,6 @@ class RestaurantScreenTest {
 
     @Test
     fun given_valid_response_when_activity_opened_list_shown() {
-        // Start the app
         (fakeRepository as? FakeRestaurantRepository)?.setReturnType(Valid)
 
         androidComposeTestRule.apply {
@@ -61,7 +59,6 @@ class RestaurantScreenTest {
 
     @Test
     fun given_valid_response_when_best_match_clicked_list_shown() {
-        // Start the app
         (fakeRepository as? FakeRestaurantRepository)?.setReturnType(Valid)
 
         androidComposeTestRule.apply {
@@ -74,7 +71,6 @@ class RestaurantScreenTest {
 
     @Test
     fun given_valid_response_when_avg_rating_clicked_list_shown() {
-        // Start the app
         (fakeRepository as? FakeRestaurantRepository)?.setReturnType(Valid)
 
         androidComposeTestRule.apply {
@@ -87,7 +83,6 @@ class RestaurantScreenTest {
 
     @Test
     fun given_valid_response_when_distance_clicked_list_shown() {
-        // Start the app
         (fakeRepository as? FakeRestaurantRepository)?.setReturnType(Valid)
 
         androidComposeTestRule.apply {
@@ -100,7 +95,7 @@ class RestaurantScreenTest {
 
     @Test
     fun given_valid_response_when_min_cost_clicked_list_shown() {
-        // Start the app
+      
         (fakeRepository as? FakeRestaurantRepository)?.setReturnType(Valid)
 
         androidComposeTestRule.apply {
@@ -113,7 +108,6 @@ class RestaurantScreenTest {
 
     @Test
     fun given_valid_response_when_avg_price_clicked_list_shown() {
-        // Start the app
         (fakeRepository as? FakeRestaurantRepository)?.setReturnType(Valid)
 
         androidComposeTestRule.apply {
@@ -126,7 +120,7 @@ class RestaurantScreenTest {
 
     @Test
     fun given_valid_response_when_delivery_cost_clicked_list_shown() {
-        // Start the app
+      
         (fakeRepository as? FakeRestaurantRepository)?.setReturnType(Valid)
 
         androidComposeTestRule.apply {
@@ -139,7 +133,6 @@ class RestaurantScreenTest {
 
     @Test
     fun given_valid_response_when_newest_clicked_list_shown() {
-        // Start the app
         (fakeRepository as? FakeRestaurantRepository)?.setReturnType(Valid)
 
         androidComposeTestRule.apply {
@@ -152,7 +145,6 @@ class RestaurantScreenTest {
 
     @Test
     fun given_valid_response_when_popularity_clicked_list_shown() {
-        // Start the app
         (fakeRepository as? FakeRestaurantRepository)?.setReturnType(Valid)
 
         androidComposeTestRule.apply {
@@ -165,7 +157,6 @@ class RestaurantScreenTest {
 
     @Test
     fun given_network_error_response_when_activity_opened_snackBar_shown() {
-        // Start the app
         (fakeRepository as? FakeRestaurantRepository)?.setReturnType(NetworkException)
 
         androidComposeTestRule.apply {
@@ -179,7 +170,6 @@ class RestaurantScreenTest {
 
     @Test
     fun given_unknown_error_response_when_activity_opened_snackBar_shown() {
-        // Start the app
         (fakeRepository as? FakeRestaurantRepository)?.setReturnType(NetworkException)
 
         androidComposeTestRule.apply {

@@ -11,7 +11,6 @@ import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.example.core.R
-import com.example.core.dispatcher.BaseDispatcherProvider
 import com.example.core.ui.R.string
 import com.example.core.ui.R.string.restaurant_list
 import com.example.wasim.MainActivity
@@ -22,7 +21,6 @@ import com.jet.restaurant.domain.repository.RestaurantRepository
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
-import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -46,16 +44,13 @@ class SearchScreenTest {
     @Inject
     lateinit var fakeRepository: RestaurantRepository
 
-    @Inject
-    lateinit var dispatcherProvider: BaseDispatcherProvider
-
     @Before
     fun setUp() {
         hiltRule.inject()
     }
 
     @Test
-    fun given_valid_response_when_activity_opened_list_shown()  {
+    fun given_valid_response_when_activity_opened_list_shown() {
         (fakeRepository as? FakeRestaurantRepository)?.setReturnType(Valid)
 
         androidComposeTestRule.apply {
@@ -108,6 +103,8 @@ class SearchScreenTest {
 
 object AsyncTimer {
     var expired = false
+        private set
+
     fun start(delay: Long = 350) {
         expired = false
         Timer().schedule(delay) {
