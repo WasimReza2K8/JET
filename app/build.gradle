@@ -57,7 +57,6 @@ dependencies {
     implementation project(':core-navigation')
     def commonDependencies = rootProject.ext.commonDependencies
 
-    implementation commonDependencies.androidx.coreKtx
     implementation commonDependencies.androidx.appcompat
 
     //Hilt
