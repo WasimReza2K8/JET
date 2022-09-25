@@ -11,14 +11,14 @@ For more information please check [this article](https://jeroenmols.com/blog/201
 To implement the solution, I used MVI+MVVM architecture with clean architecture
 approach in each module. In MVI (Model, View, Intent) architecture user interaction regard as event (or user intent)
 that change the model which represents UI state. ViewModel is responsible for creating immutable state
-for the ui. I use shared flow for user events, compose state for states and channel for effect
+for the ui and hold them. I use shared flow for user events, compose state for states and channel for effect
 (means side effect of any exception). User events and effects are one time event that is why I use
 hot observable like shared flow and channel. Shared flow can be observed from multiple subscribers for this reason
 it is a better option to use it for users event (if we want multiple work starting with one event). However,
 channel is better choice for effects because it can only have single subscriber and absence of the subscriber it will
 suspend till the channel buffer becomes full, waiting for a subscriber to appear. For more information please check
 [this article](https://elizarov.medium.com/shared-flows-broadcast-channels-899b675e805c). Channel is also used for
-navigation event which is handled by main activity.
+navigation event which is handled by main activity and holding query in search view model.
 
 Inside every feature module, the packages representing clean code architecture layers (presentation, domain, data). 
 The presentation layer is responsible for drawing UI, UI related logic and holding UI states. Composable screens, view model,  
