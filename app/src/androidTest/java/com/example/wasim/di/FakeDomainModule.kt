@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface RestaurantDomainModule {
+interface FakeDomainModule {
     @Binds
     @Singleton
     fun bindRestaurantRepository(repository: FakeRestaurantRepository): RestaurantRepository

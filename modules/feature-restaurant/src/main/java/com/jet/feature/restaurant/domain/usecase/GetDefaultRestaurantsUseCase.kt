@@ -47,7 +47,7 @@ class GetDefaultRestaurantsUseCase @Inject constructor(
                 }
             }.flowOn(dispatcherProvider.io())
 
-    private fun sorting(restaurantList: List<Restaurant>): Flow<Output<List<Restaurant>>> {
-        return getSortedRestaurants(restaurantList, BestMatch)
-    }
+    private fun sorting(restaurantList: List<Restaurant>): Flow<Output<List<Restaurant>>> =
+        getSortedRestaurants(restaurantList, BestMatch)
+
 }

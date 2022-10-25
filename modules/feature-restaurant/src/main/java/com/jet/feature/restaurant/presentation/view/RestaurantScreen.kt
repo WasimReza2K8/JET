@@ -22,7 +22,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.ui.theme.JetTheme
 import com.example.core.ui.views.Chip
 import com.example.core.ui.views.ChipGroup
-import com.jet.restaurant.presentation.views.RestaurantList
 import com.example.core.ui.views.TopBar
 import com.jet.feature.restaurant.R.string
 import com.jet.feature.restaurant.domain.model.SortingType.BestMatch
@@ -44,6 +43,7 @@ import com.jet.feature.restaurant.presentation.viewmodel.RestaurantViewModel
 import com.jet.restaurant.domain.model.Status.Open
 import com.jet.restaurant.presentation.model.RestaurantUiModel
 import com.jet.restaurant.presentation.model.RestaurantUiModel.SortingValues
+import com.jet.restaurant.presentation.views.RestaurantList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
@@ -170,7 +170,6 @@ fun getChips(
                 sendUiEvent(sendEvent, isChecked, OnRatingAverageClicked)
             }
         ),
-
         Chip(
             id = string.restaurant_distance,
             text = stringResource(id = string.restaurant_distance),

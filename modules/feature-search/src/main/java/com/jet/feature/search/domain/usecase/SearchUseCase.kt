@@ -35,11 +35,7 @@ class SearchUseCase @Inject constructor(
 ) {
     operator fun invoke(query: String): Flow<Output<List<Restaurant>>> =
         repository.getRestaurants().map { list ->
-            Output.Success(
-                list.filter { restaurant ->
-                    restaurant.name.lowercase().contains(query.lowercase())
-                }
-            ) as Output<List<Restaurant>>
+            getFilteredRestaurant(list, query)
         }.catch { error ->
             if (error.isNetworkException()) {
                 emit(NetworkError)
@@ -47,4 +43,11 @@ class SearchUseCase @Inject constructor(
                 emit(UnknownError)
             }
         }.flowOn(dispatcherProvider.io())
+
+    private fun getFilteredRestaurant(list: List<Restaurant>, query: String): Output<List<Restaurant>> =
+        Output.Success(
+            list.filter { restaurant ->
+                restaurant.name.lowercase().contains(query.lowercase())
+            }
+        )
 }

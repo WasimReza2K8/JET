@@ -28,9 +28,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.Timer
 import javax.inject.Inject
-import kotlin.concurrent.schedule
 
 @HiltAndroidTest
 @MediumTest
@@ -61,11 +59,6 @@ class SearchScreenTest {
             val contentDescription = activity.getString(restaurant_search_icon)
             onNodeWithContentDescription(contentDescription).performClick()
             onNodeWithText(text).performTextInput("de")
-            AsyncTimer.start()
-            waitUntil(
-                condition = { AsyncTimer.expired },
-                timeoutMillis = 1000
-            )
             onNodeWithTag(activity.getString(restaurant_list))
                 .onChildren()
                 .assertCountEquals(2)
@@ -81,11 +74,6 @@ class SearchScreenTest {
             val contentDescription = activity.getString(restaurant_search_icon)
             onNodeWithContentDescription(contentDescription).performClick()
             onNodeWithText(text).performTextInput("")
-            AsyncTimer.start()
-            waitUntil(
-                condition = { AsyncTimer.expired },
-                timeoutMillis = 1000
-            )
             onNodeWithTag(activity.getString(restaurant_list)).assertIsNotDisplayed()
         }
     }
@@ -99,11 +87,6 @@ class SearchScreenTest {
             val contentDescription = activity.getString(restaurant_search_icon)
             onNodeWithContentDescription(contentDescription).performClick()
             onNodeWithText(text).performTextInput("qu")
-            AsyncTimer.start()
-            waitUntil(
-                condition = { AsyncTimer.expired },
-                timeoutMillis = 1000
-            )
             val result = activity.getString(string.no_restaurant)
             onNodeWithText(result).assertIsDisplayed()
         }
@@ -140,18 +123,6 @@ class SearchScreenTest {
                 .assertCountEquals(0)
             val text = activity.getString(R.string.unknown_error)
             onNodeWithText(text)
-        }
-    }
-}
-
-object AsyncTimer {
-    var expired = false
-        private set
-
-    fun start(delay: Long = 350) {
-        expired = false
-        Timer().schedule(delay) {
-            expired = true
         }
     }
 }

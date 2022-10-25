@@ -24,13 +24,27 @@ android {
             useSupportLibrary true
         }
     }
-
+    testBuildType "UITest"
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            minifyEnabled false
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        UITest {
+            minifyEnabled false
+            debuggable true
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
@@ -68,7 +82,6 @@ dependencies {
     debugImplementation developmentDependencies.leakcanary
 
 
-
     // compose
     implementation commonDependencies.compose.ui
     debugImplementation commonDependencies.compose.uiTooling
@@ -89,7 +102,7 @@ dependencies {
     // androidTest
     debugImplementation commonDependencies.compose.uiTestManifest
     androidTestImplementation commonDependencies.compose.uiTestCompose
-    
+
     def commonAndroidTestDependencies = rootProject.ext.commonAndroidTestDependencies
     def commonTestDependencies = rootProject.ext.commonTestDependencies
     androidTestImplementation commonAndroidTestDependencies.espressoCore

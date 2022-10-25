@@ -25,6 +25,7 @@ import com.example.core.state.Output.Success
 import com.example.core.state.Output.UnknownError
 import com.example.core.ui.R.string.no_restaurant
 import com.example.core.viewmodel.BaseViewModel
+import com.jet.feature.search.BuildConfig.DEBOUNCE_TIME
 import com.jet.feature.search.domain.usecase.SearchUseCase
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Effect.NetworkErrorEffect
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Effect.UnknownErrorEffect
@@ -64,7 +65,7 @@ class SearchViewModel @Inject constructor(
             is OnInitViewModel -> startQuery()
             is OnSearch -> {
                 updateState { copy(query = event.query) }
-                searchQuery.trySend(event.query).isSuccess
+                searchQuery.trySend(event.query)
             }
             OnBackButtonClicked -> {
                 navigator.navigateUp()
@@ -123,9 +124,5 @@ class SearchViewModel @Inject constructor(
                     }
                 }
         }
-    }
-
-    companion object {
-        private const val DEBOUNCE_TIME = 350L
     }
 }

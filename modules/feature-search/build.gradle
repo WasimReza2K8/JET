@@ -9,6 +9,22 @@ android {
     defaultConfig {
         consumerProguardFiles "$projectDir/proguard-search-consumer-rules.pro"
     }
+
+    buildTypes {
+        debug {
+            debuggable true
+            buildConfigField "long", "DEBOUNCE_TIME", "350L"
+        }
+        release {
+            debuggable false
+            buildConfigField "long", "DEBOUNCE_TIME", "350L"
+        }
+        UITest {
+            debuggable true
+            buildConfigField "long", "DEBOUNCE_TIME", "0L"
+        }
+    }
+
 }
 
 dependencies {
