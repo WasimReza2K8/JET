@@ -31,6 +31,6 @@ feature shared module to get similar behavior like other features. Core modules 
 They cannot depend on any other feature or feature-shared module. 
 
 The screen shots are given below.
-![jet1](images/jet-1.jpg | width=100)
+<img src="images/jet-1.jpg" width="100" height="100">
 ![jet2](images/jet-2.jpg)
 ![jet3](images/jet-3.jpg)
