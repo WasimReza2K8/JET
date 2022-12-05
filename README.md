@@ -29,3 +29,8 @@ implementation, datasource (internal and external) should be part of data layer.
 The shared code with other feature modules are placed in the feature-shared module. Any feature module can depend on 0 to n number 
 feature shared module to get similar behavior like other features. Core modules are pure library modules which are used by other modules.
 They cannot depend on any other feature or feature-shared module. 
+
+The screen shots are given below.
+![jet1](images/jet-1.jpg)
+![jet2](images/jet-2.jpg)
+![jet3](images/jet-3.jpg)
