@@ -30,7 +30,7 @@ The shared code with other feature modules are placed in the feature-shared modu
 feature shared module to get similar behavior like other features. Core modules are pure library modules which are used by other modules.
 They cannot depend on any other feature or feature-shared module. 
 
-The screen shots are given below.
-<img src="images/jet-1.jpg" width="100" height="100">
+## Screen shot
+<img src="images/jet-1.jpg" width="150">
 ![jet2](images/jet-2.jpg)
 ![jet3](images/jet-3.jpg)
