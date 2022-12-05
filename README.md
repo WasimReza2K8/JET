@@ -31,6 +31,8 @@ feature shared module to get similar behavior like other features. Core modules 
 They cannot depend on any other feature or feature-shared module. 
 
 ## Screen shot
+<p float="left">
 <img src="images/jet-1.jpg" width="200">
 <img src="images/jet-2.jpg" width="200">
 <img src="images/jet-3.jpg" width="200">
+</p>
