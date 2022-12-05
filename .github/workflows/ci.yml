@@ -6,12 +6,12 @@ on:
       - '**.md'
   push:
     branches:
-      - master
+      - main
     paths-ignore:
       - '**.md'
   workflow_dispatch:
     branches:
-      - master
+      - main
 jobs:
   checks:
     name: Checking manifest and deps
