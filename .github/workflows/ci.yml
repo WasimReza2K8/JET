@@ -6,17 +6,16 @@ on:
       - '**.md'
   push:
     branches:
-      - main
+      - master
     paths-ignore:
       - '**.md'
   workflow_dispatch:
     branches:
-      - main
+      - master
 jobs:
   checks:
     name: Checking manifest and deps
     runs-on: ubuntu-latest
-    timeout-minutes: 20
 
     steps:
       - name: Checkout
@@ -26,11 +25,49 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: 11
+
+  lint:
+    name: lint check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      - name: lint check
+        run: ./gradlew lintDebug
+      - name: Upload html test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: lint.html
+          path: app/build/reports/lint-results-debug.html
+
+  static-analysis:
+    name: static analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
       - name: Detekt
         uses: gradle/gradle-build-action@v2
         with:
           arguments: detekt
+  unit-test:
+    name: unit test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
       - name: Unit tests
-        run: ./gradlew test
+        run: ./gradlew testDebugUnitTest
+
+  build:
+    name: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
       - name: Build with Gradle
         run: ./gradlew build

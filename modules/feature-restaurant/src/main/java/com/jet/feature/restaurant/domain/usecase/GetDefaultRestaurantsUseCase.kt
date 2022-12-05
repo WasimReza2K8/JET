@@ -49,5 +49,4 @@ class GetDefaultRestaurantsUseCase @Inject constructor(
 
     private fun sorting(restaurantList: List<Restaurant>): Flow<Output<List<Restaurant>>> =
         getSortedRestaurants(restaurantList, BestMatch)
-
 }
