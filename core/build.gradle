@@ -5,11 +5,15 @@ apply from: "$rootDir/buildsystem/android-library.gradle"
 
 android {
     buildTypes {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("local.properties").newDataInputStream())
         release {
-            buildConfigField "String", "BASE_URL", "\"https://your_api_url.com\""
+            buildConfigField("String", "API_KEY", "\"${properties.getProperty("api_key")}\"")
+            buildConfigField "String", "BASE_URL", "\"https://pixabay.com/\""
         }
         debug {
-            buildConfigField "String", "BASE_URL", "\"https://your_api_url.com\""
+            buildConfigField("String", "API_KEY", "\"${properties.getProperty("api_key")}\"")
+            buildConfigField "String", "BASE_URL", "\"https://pixabay.com/\""
         }
     }
 }

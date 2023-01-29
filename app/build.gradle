@@ -55,7 +55,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion "1.2.0"
+        kotlinCompilerExtensionVersion "1.3.2"
     }
     buildFeatures {
         compose true
@@ -63,10 +63,10 @@ android {
 }
 
 dependencies {
+    implementation project(':modules:feature-detail-shared')
+    implementation project(':modules:feature-detail')
     implementation project(':modules:feature-search-shared')
     implementation project(':modules:feature-search')
-    implementation project(':modules:feature-restaurant-shared')
-    implementation project(':modules:feature-restaurant')
     implementation project(':core-ui')
     implementation project(':core-navigation')
     def commonDependencies = rootProject.ext.commonDependencies
@@ -81,7 +81,9 @@ dependencies {
     implementation commonDependencies.other.timber
     debugImplementation developmentDependencies.leakcanary
 
-
+    def composeBom = platform('androidx.compose:compose-bom:2022.12.00')
+    implementation composeBom
+    androidTestImplementation composeBom
     // compose
     implementation commonDependencies.compose.ui
     debugImplementation commonDependencies.compose.uiTooling

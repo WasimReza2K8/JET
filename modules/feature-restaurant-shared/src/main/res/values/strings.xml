@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="restaurant_shared_min">Min.</string>
-    <string name="restaurant_shared_avg">Avg.</string>
-    <string name="restaurant_shared_euro">€</string>
-    <string name="restaurant_shared_kilo_meter">km</string>
-    <string name="restaurant_shared_image">Restaurant Image</string>
-</resources>

@@ -1,5 +1,5 @@
 ext {
-    kotlin_version = '1.7.0'
+    kotlin_version = '1.7.20'
     coroutine_version = '1.6.0'
     kotlinx_serialization = "1.3.2"
     kotlinx_serialization_converter_version = '0.8.0'
@@ -17,9 +17,9 @@ ext {
     okHttp_version = '4.9.3'
     retrofit2_version = '2.9.0'
     glide_version = '4.12.0'
-    room_version = "2.4.2"
+    room_version = "2.5.0"
     //compose
-    compose_version = "1.2.0"
+    compose_version = "1.3.2"
     compose_activity_version = "1.5.1"
     compose_viewmodel_version = "2.4.1"
     accompanist_version = '0.23.1'
@@ -82,25 +82,25 @@ ext {
             ],
 
             compose  : [
-                    ui                    : "androidx.compose.ui:ui:${compose_version}",
-                    uiTooling             : "androidx.compose.ui:ui-tooling:${compose_version}",
-                    preview               : "androidx.compose.ui:ui-tooling-preview:${compose_version}",
-                    foundation            : "androidx.compose.foundation:foundation:${compose_version}",
-                    materialDesign        : "androidx.compose.material:material:${compose_version}",
-                    meterialIcon          : "androidx.compose.material:material-icons-core:${compose_version}",
-                    iconExt               : "androidx.compose.material:material-icons-extended:${compose_version}",
+                    ui                    : "androidx.compose.ui:ui",
+                    uiTooling             : "androidx.compose.ui:ui-tooling",
+                    preview               : "androidx.compose.ui:ui-tooling-preview",
+                    foundation            : "androidx.compose.foundation:foundation",
+                    materialDesign        : "androidx.compose.material:material",
+                    meterialIcon          : "androidx.compose.material:material-icons-core",
+                    iconExt               : "androidx.compose.material:material-icons-extended",
                     activity              : "androidx.activity:activity-compose:${compose_activity_version}",
                     viewModel             : "androidx.lifecycle:lifecycle-viewmodel-compose:${lifecycle_version}",
                     animation             : "androidx.compose.animation:animation:${compose_animation_version}",
                     flowLayout            : "com.google.accompanist:accompanist-flowlayout:${accompanist_version}",
-                    composeRuntime        : "androidx.compose.runtime:runtime:${compose_version}",
-                    composeRunTimeLiveData: "androidx.compose.runtime:runtime-livedata:${compose_version}",
+                    composeRuntime        : "androidx.compose.runtime:runtime",
+                    composeRunTimeLiveData: "androidx.compose.runtime:runtime-livedata",
                     customView            : "androidx.customview:customview-poolingcontainer:${custom_view_version}",
-                    uiTestManifest        : "androidx.compose.ui:ui-test-manifest:${compose_version}",
+                    uiTestManifest        : "androidx.compose.ui:ui-test-manifest",
                     composeNavigation     : "androidx.navigation:navigation-compose:${compose_navigation}",
                     hiltNavigationCompose : "androidx.hilt:hilt-navigation-compose:${hilt_navigation_compose}",
                     accopanistNavigation  : "com.google.accompanist:accompanist-navigation-animation:${accompanist_version}",
-                    uiTestCompose         : "androidx.compose.ui:ui-test-junit4:${compose_version}"
+                    uiTestCompose         : "androidx.compose.ui:ui-test-junit4"
             ],
 
             other    : [

@@ -23,18 +23,21 @@ import com.example.core.resProvider.ResourceProvider
 import com.example.core.state.Output.NetworkError
 import com.example.core.state.Output.Success
 import com.example.core.state.Output.UnknownError
-import com.example.core.ui.R.string.no_restaurant
+import com.example.core.ui.R.string.no_photo
 import com.example.core.viewmodel.BaseViewModel
+import com.jet.detail.presentation.DetailLauncher
 import com.jet.feature.search.BuildConfig.DEBOUNCE_TIME
 import com.jet.feature.search.domain.usecase.SearchUseCase
-import com.jet.feature.search.presentation.viewmodel.SearchContract.Effect.NetworkErrorEffect
-import com.jet.feature.search.presentation.viewmodel.SearchContract.Effect.UnknownErrorEffect
+import com.jet.search.presentation.mapper.toPhotoUiModel
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnBackButtonClicked
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnInitViewModel
+import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnPhotoClicked
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnQueryClearClicked
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnSearch
+import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnSelectConfirmed
+import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnSelectDecline
+import com.jet.feature.search.presentation.viewmodel.SearchContract.FRUITS
 import com.jet.feature.search.presentation.viewmodel.SearchContract.State
-import com.jet.restaurant.presentation.mapper.mapToRestaurantUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.debounce
@@ -50,11 +53,13 @@ class SearchViewModel @Inject constructor(
     private val searchUseCase: SearchUseCase,
     private val resourceProvider: ResourceProvider,
     private val navigator: Navigator,
-) : BaseViewModel<SearchContract.Event, State, SearchContract.Effect>() {
+    private val detailLauncher: DetailLauncher,
+) : BaseViewModel<SearchContract.Event, State>() {
 
     override fun provideInitialState() = State()
 
     private val searchQuery: Channel<String> = Channel()
+    private var selectedId: String? = null
 
     init {
         onUiEvent(OnInitViewModel)
@@ -62,7 +67,12 @@ class SearchViewModel @Inject constructor(
 
     override fun handleEvent(event: SearchContract.Event) {
         when (event) {
-            is OnInitViewModel -> startQuery()
+            is OnInitViewModel -> {
+                startQuery()
+                viewModelScope.launch {
+                    onUiEvent(OnSearch(FRUITS))
+                }
+            }
             is OnSearch -> {
                 updateState { copy(query = event.query) }
                 searchQuery.trySend(event.query)
@@ -70,7 +80,21 @@ class SearchViewModel @Inject constructor(
             OnBackButtonClicked -> {
                 navigator.navigateUp()
             }
-            OnQueryClearClicked -> updateState { copy(query = "", restaurants = emptyList()) }
+            OnQueryClearClicked -> updateState { copy(query = "", photos = emptyList()) }
+            is OnPhotoClicked -> {
+                selectedId = event.selectedId
+                updateState { copy(isDialogShowing = true) }
+            }
+            is OnSelectConfirmed -> {
+                updateState { copy(isDialogShowing = false) }
+                selectedId?.let {
+                    navigator.navigate(detailLauncher.route(it))
+                }
+                selectedId = null
+            }
+            is OnSelectDecline -> {
+                updateState { copy(isDialogShowing = false) }
+            }
         }
     }
 
@@ -84,8 +108,8 @@ class SearchViewModel @Inject constructor(
                     if (query.isEmpty()) {
                         updateState {
                             copy(
-                                noResultFoundText = "",
-                                restaurants = emptyList(),
+                                infoText = "",
+                                photos = emptyList(),
                             )
                         }
                         return@filter false
@@ -94,32 +118,35 @@ class SearchViewModel @Inject constructor(
                     }
                 }
                 .flatMapLatest { query ->
+                    updateState { copy(isLoading = true) }
                     searchUseCase(query)
                 }.collect { output ->
+                    updateState { copy(isLoading = false) }
                     when (output) {
                         is Success -> {
                             if (output.result.isEmpty()) {
                                 updateState {
                                     copy(
-                                        noResultFoundText = resourceProvider.getString(no_restaurant),
-                                        restaurants = emptyList()
+                                        infoText = resourceProvider.getString(no_photo),
+                                        photos = emptyList()
                                     )
                                 }
                             } else {
                                 updateState {
                                     copy(
-                                        restaurants = output.result.map { restaurant ->
-                                            restaurant.mapToRestaurantUi(resourceProvider)
+                                        infoText = "",
+                                        photos = output.result.map {
+                                            it.toPhotoUiModel()
                                         }
                                     )
                                 }
                             }
                         }
                         NetworkError -> {
-                            sendEffect(NetworkErrorEffect(resourceProvider.getString(string.network_error)))
+                            updateState { copy(infoText = resourceProvider.getString(string.network_error)) }
                         }
                         UnknownError -> {
-                            sendEffect(UnknownErrorEffect(resourceProvider.getString(string.unknown_error)))
+                            updateState { copy(infoText = resourceProvider.getString(string.unknown_error)) }
                         }
                     }
                 }

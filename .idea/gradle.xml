@@ -15,8 +15,8 @@
             <option value="$PROJECT_DIR$/core-navigation" />
             <option value="$PROJECT_DIR$/core-ui" />
             <option value="$PROJECT_DIR$/modules" />
-            <option value="$PROJECT_DIR$/modules/feature-restaurant" />
-            <option value="$PROJECT_DIR$/modules/feature-restaurant-shared" />
+            <option value="$PROJECT_DIR$/modules/feature-detail" />
+            <option value="$PROJECT_DIR$/modules/feature-detail-shared" />
             <option value="$PROJECT_DIR$/modules/feature-search" />
             <option value="$PROJECT_DIR$/modules/feature-search-shared" />
           </set>

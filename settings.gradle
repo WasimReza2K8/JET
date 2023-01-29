@@ -12,13 +12,14 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Wasim"
+rootProject.name = "pixabay"
 
 include ':app'
 include ':core'
 include ':core-ui'
 include ':core-navigation'
-include 'modules:feature-restaurant'
-include 'modules:feature-restaurant-shared'
 include 'modules:feature-search'
 include 'modules:feature-search-shared'
+
+include 'modules:feature-detail'
+include 'modules:feature-detail-shared'

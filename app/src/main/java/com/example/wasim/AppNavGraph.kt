@@ -12,9 +12,9 @@ fun AppNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = featureProvider.restaurantLauncher.route()
+        startDestination = featureProvider.searchLauncher.route()
     ) {
-        register(featureProvider.restaurantLauncher)
         register(featureProvider.searchLauncher)
+        register(featureProvider.detailLauncher)
     }
 }

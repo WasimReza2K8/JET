@@ -74,7 +74,7 @@ dependencies {
     detektPlugins commonDependencies.other.detekt
 
     // compose
-    implementation commonDependencies.compose.composeRuntime
+   // implementation commonDependencies.compose.composeRuntime
     // test
     testImplementation commonTestDependencies.mockk
     testImplementation commonTestDependencies.mockkAndroid

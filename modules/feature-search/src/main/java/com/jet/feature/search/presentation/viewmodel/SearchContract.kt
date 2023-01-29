@@ -16,16 +16,19 @@
 
 package com.jet.feature.search.presentation.viewmodel
 
-import com.example.core.viewmodel.ViewEffect
 import com.example.core.viewmodel.ViewEvent
 import com.example.core.viewmodel.ViewState
-import com.jet.restaurant.presentation.model.RestaurantUiModel
+import com.jet.search.presentation.model.PhotoUiModel
 
 object SearchContract {
+    const val FRUITS = "fruits"
+
     data class State(
-        val query: String = "",
-        val noResultFoundText: String = "",
-        val restaurants: List<RestaurantUiModel> = emptyList(),
+        val isLoading: Boolean = false,
+        val query: String = FRUITS,
+        val infoText: String = "",
+        val isDialogShowing: Boolean = false,
+        val photos: List<PhotoUiModel> = emptyList(),
     ) : ViewState
 
     sealed interface Event : ViewEvent {
@@ -33,10 +36,8 @@ object SearchContract {
         data class OnSearch(val query: String) : Event
         object OnQueryClearClicked : Event
         object OnInitViewModel : Event
-    }
-
-    sealed interface Effect : ViewEffect {
-        data class NetworkErrorEffect(val message: String) : Effect
-        data class UnknownErrorEffect(val message: String) : Effect
+        data class OnPhotoClicked(val selectedId: String) : Event
+        object OnSelectConfirmed : Event
+        object OnSelectDecline : Event
     }
 }

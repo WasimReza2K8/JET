@@ -4,7 +4,7 @@ android {
     def config = rootProject.ext
 
     composeOptions {
-        kotlinCompilerExtensionVersion config.compose_version
+        kotlinCompilerExtensionVersion = config.compose_version
     }
     buildFeatures {
         compose true
@@ -13,6 +13,9 @@ android {
 
 dependencies {
     def commonDependencies = rootProject.ext.commonDependencies
+    def composeBom = platform('androidx.compose:compose-bom:2022.12.00')
+    implementation composeBom
+    androidTestImplementation composeBom
 
     implementation commonDependencies.compose.ui
     debugImplementation commonDependencies.compose.uiTooling
@@ -26,7 +29,7 @@ dependencies {
     implementation commonDependencies.compose.animation
     implementation commonDependencies.compose.flowLayout
     implementation commonDependencies.compose.composeRuntime
-    implementation commonDependencies.compose.composeRunTimeLiveData
+    implementation "androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha03"
     debugImplementation commonDependencies.compose.uiTestManifest
     debugImplementation commonDependencies.compose.customView
     implementation commonDependencies.compose.composeNavigation

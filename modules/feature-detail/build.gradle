@@ -1,0 +1,24 @@
+plugins {
+    id 'kotlinx-serialization'
+}
+apply from: "$rootDir/buildsystem/android-compose-library.gradle"
+
+
+android {
+    resourcePrefix 'detail_'
+    defaultConfig {
+        consumerProguardFiles "$projectDir/proguard-detail-consumer-rules.pro"
+    }
+}
+
+dependencies {
+    implementation project(':core')
+    implementation project(':core-ui')
+    implementation project(':core-navigation')
+    implementation project(':modules:feature-detail-shared')
+    implementation project(':modules:feature-search-shared')
+
+    def commonDependencies = rootProject.ext.commonDependencies
+    implementation commonDependencies.jetbrains.coroutine
+    implementation commonDependencies.jetbrains.kotlinSerialization
+}

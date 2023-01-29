@@ -4,68 +4,54 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
-import androidx.compose.material.SnackbarDuration.Long
-import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.core.ui.theme.JetTheme
-import com.example.core.ui.views.TopBar
-import com.jet.feature.search.presentation.viewmodel.SearchContract.Effect
-import com.jet.feature.search.presentation.viewmodel.SearchContract.Effect.NetworkErrorEffect
-import com.jet.feature.search.presentation.viewmodel.SearchContract.Effect.UnknownErrorEffect
+import com.example.core.ui.views.SearchBar
+import com.jet.feature.search.R
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Event
-import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnBackButtonClicked
+import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnPhotoClicked
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnQueryClearClicked
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnSearch
+import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnSelectConfirmed
+import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnSelectDecline
 import com.jet.feature.search.presentation.viewmodel.SearchContract.State
 import com.jet.feature.search.presentation.viewmodel.SearchViewModel
-import com.jet.restaurant.presentation.views.RestaurantList
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
+    val state: State by viewModel.viewState.collectAsStateWithLifecycle()
     SearchScreenImpl(
-        state = viewModel.viewState.value,
+        state = state,
         sendEvent = { viewModel.onUiEvent(it) },
-        effectFlow = viewModel.effect,
     )
 }
 
 @Composable
 private fun SearchScreenImpl(
     state: State,
-    effectFlow: Flow<Effect>,
     sendEvent: (event: Event) -> Unit,
 ) {
-    val snackBarHostState = remember { SnackbarHostState() }
-
-    HandleEffect(
-        effectFlow = effectFlow,
-        snackBarHostState = snackBarHostState,
-    )
-
     Scaffold(
-        scaffoldState = rememberScaffoldState(snackbarHostState = snackBarHostState),
         topBar = {
-            TopBar(
-                title = "Search",
-                searchText = state.query,
-                onNavigateUp = {
-                    sendEvent(OnBackButtonClicked)
-                },
-                onSearchTextChange = { query ->
+            SearchBar(
+                hint = "Search",
+                value = state.query,
+                onValueChange = { query ->
                     sendEvent(OnSearch(query))
                 },
-                onClearClick = {
+                onClick = {
                     sendEvent(OnQueryClearClicked)
                 }
             )
@@ -81,43 +67,42 @@ private fun SearchScreenImpl(
                     bottom = scaffoldPadding.calculateBottomPadding(),
                 )
         ) {
-            if (state.restaurants.isEmpty() && state.noResultFoundText.isNotEmpty()) {
+            if (state.photos.isEmpty() && state.infoText.isNotEmpty()) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = state.noResultFoundText)
+                    Text(text = state.infoText)
                 }
             } else {
-                RestaurantList(restaurants = state.restaurants)
+                PhotoList(
+                    photos = state.photos,
+                    onItemClick = { localId ->
+                        sendEvent(OnPhotoClicked(localId))
+                    }
+                )
             }
         }
-    }
-}
 
-@Composable
-private fun HandleEffect(
-    effectFlow: Flow<Effect>,
-    snackBarHostState: SnackbarHostState,
-) {
-    LaunchedEffect(effectFlow) {
-        effectFlow.onEach { effect ->
-            when (effect) {
-                is NetworkErrorEffect -> {
-                    snackBarHostState.showSnackbar(
-                        message = effect.message,
-                        duration = Long,
-                    )
-                }
-                is UnknownErrorEffect -> {
-                    snackBarHostState.showSnackbar(
-                        message = effect.message,
-                        duration = Long,
-                    )
-                }
-            }
-        }.collect()
+        if (state.isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .wrapContentSize(Alignment.Center),
+            )
+        }
+
+        if (state.isDialogShowing) {
+            SelectionDialog(
+                title = stringResource(id = R.string.search_confirmation),
+                text = stringResource(id = R.string.search_confirmation_detail),
+                yesButtonText = stringResource(id = R.string.search_confirmation_yes),
+                noButtonText = stringResource(id = R.string.search_confirmation_no),
+                onConfirm = { sendEvent(OnSelectConfirmed) },
+                onDecline = { sendEvent(OnSelectDecline) }
+            )
+        }
     }
 }

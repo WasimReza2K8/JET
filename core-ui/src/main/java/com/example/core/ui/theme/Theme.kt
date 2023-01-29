@@ -14,13 +14,13 @@ private val color = Color()
 
 private val DarkColorPalette = darkColors(
     primary = color.grey500,
-    primaryVariant = color.orange700,
+    primaryVariant = color.blue700,
     secondary = color.teal200
 )
 
 private val LightColorPalette = lightColors(
-    primary = color.orange500,
-    primaryVariant = color.orange700,
+    primary = color.blue500,
+    primaryVariant = color.blue700,
     secondary = color.teal200,
     background = Color.White,
     surface = Color.White,

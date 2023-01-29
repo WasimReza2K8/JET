@@ -21,21 +21,23 @@ import com.example.core.ext.isNetworkException
 import com.example.core.state.Output
 import com.example.core.state.Output.NetworkError
 import com.example.core.state.Output.UnknownError
-import com.jet.restaurant.domain.model.Restaurant
-import com.jet.restaurant.domain.repository.RestaurantRepository
+import com.jet.search.domain.model.Photo
+import com.jet.search.domain.repository.SearchRepository
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
+@ViewModelScoped
 class SearchUseCase @Inject constructor(
-    private val repository: RestaurantRepository,
+    private val repository: SearchRepository,
     private val dispatcherProvider: BaseDispatcherProvider,
 ) {
-    operator fun invoke(query: String): Flow<Output<List<Restaurant>>> =
-        repository.getRestaurants().map { list ->
-            getFilteredRestaurant(list, query)
+    operator fun invoke(query: String): Flow<Output<List<Photo>>> =
+        repository.searchPhoto(processQueryString(query)).map { photos ->
+            getOutput(photos)
         }.catch { error ->
             if (error.isNetworkException()) {
                 emit(NetworkError)
@@ -44,10 +46,8 @@ class SearchUseCase @Inject constructor(
             }
         }.flowOn(dispatcherProvider.io())
 
-    private fun getFilteredRestaurant(list: List<Restaurant>, query: String): Output<List<Restaurant>> =
-        Output.Success(
-            list.filter { restaurant ->
-                restaurant.name.lowercase().contains(query.lowercase())
-            }
-        )
+    private fun getOutput(photos: List<Photo>): Output<List<Photo>> = Output.Success(photos)
+
+    private fun processQueryString(query: String): String = query.replace(" ", "+")
+
 }
