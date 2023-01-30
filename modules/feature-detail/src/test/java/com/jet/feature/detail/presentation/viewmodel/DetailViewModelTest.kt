@@ -51,7 +51,7 @@ class DetailViewModelTest {
     private val unknownError = "unknown error"
     private val resourceProvider: ResourceProvider = mockk {
         every {
-            getString(R.string.unknown_error)
+            getString(R.string.unknown_error_detail)
         } returns unknownError
     }
 
