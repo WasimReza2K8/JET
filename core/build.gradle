@@ -6,17 +6,19 @@ apply from: "$rootDir/buildsystem/android-library.gradle"
 android {
     buildTypes {
         Properties properties = new Properties()
-        properties.load(project.rootProject.file("local.properties").newDataInputStream())
+        if (file("../local.properties").exists()) {
+            properties.load(project.rootProject.file("local.properties").newDataInputStream())
+        }
         release {
-            buildConfigField("String", "API_KEY", System.getenv("API_KEY") ?:"\"${properties.getProperty("API_KEY")}\"")
+            buildConfigField("String", "API_KEY", System.getenv("API_KEY") ?: "\"${properties.getProperty("API_KEY")}\"")
             buildConfigField "String", "BASE_URL", "\"https://pixabay.com/\""
         }
         debug {
-            buildConfigField("String", "API_KEY", System.getenv("API_KEY") ?:"\"${properties.getProperty("API_KEY")}\"")
+            buildConfigField("String", "API_KEY", System.getenv("API_KEY") ?: "\"${properties.getProperty("API_KEY")}\"")
             buildConfigField "String", "BASE_URL", "\"https://pixabay.com/\""
         }
         UITest {
-            buildConfigField("String", "API_KEY", System.getenv("API_KEY") ?:"\"${properties.getProperty("API_KEY")}\"")
+            buildConfigField("String", "API_KEY", System.getenv("API_KEY") ?: "\"${properties.getProperty("API_KEY")}\"")
             buildConfigField "String", "BASE_URL", "\"https://pixabay.com/\""
         }
     }
