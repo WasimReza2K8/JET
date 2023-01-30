@@ -60,7 +60,7 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
       - name: Unit tests
-        run: ./gradlew testDebugUnitTest
+        run: bash ./gradlew testDebugUnitTest
 
   build:
     name: build
