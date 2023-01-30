@@ -49,9 +49,7 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v2
       - name: Detekt
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: detekt
+        run: bash ./gradlew detekt
   unit-test:
     name: unit test
     runs-on: ubuntu-latest
