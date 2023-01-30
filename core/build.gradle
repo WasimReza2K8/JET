@@ -8,15 +8,15 @@ android {
         Properties properties = new Properties()
         properties.load(project.rootProject.file("local.properties").newDataInputStream())
         release {
-            buildConfigField("String", "API_KEY", System.getenv("api_key") ?:"\"${properties.getProperty("api_key")}\"")
+            buildConfigField("String", "API_KEY", System.getenv("API_KEY") ?:"\"${properties.getProperty("API_KEY")}\"")
             buildConfigField "String", "BASE_URL", "\"https://pixabay.com/\""
         }
         debug {
-            buildConfigField("String", "API_KEY", System.getenv("api_key") ?:"\"${properties.getProperty("api_key")}\"")
+            buildConfigField("String", "API_KEY", System.getenv("API_KEY") ?:"\"${properties.getProperty("API_KEY")}\"")
             buildConfigField "String", "BASE_URL", "\"https://pixabay.com/\""
         }
         UITest {
-            buildConfigField("String", "API_KEY", "\"${properties.getProperty("api_key")}\"")
+            buildConfigField("String", "API_KEY", System.getenv("API_KEY") ?:"\"${properties.getProperty("API_KEY")}\"")
             buildConfigField "String", "BASE_URL", "\"https://pixabay.com/\""
         }
     }
