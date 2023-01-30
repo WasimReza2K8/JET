@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import com.example.core.ui.theme.JetTheme
 
 @Composable
-fun CompositeImageTextComponent(
+fun PhotoWithInfoComponent(
     text1: String,
     text2: String,
     imageUrl: String,
@@ -52,7 +52,6 @@ fun CompositeImageTextComponent(
             )
             content()
         }
-
     }
 }
 
@@ -61,11 +60,12 @@ fun CompositeImageTextComponent(
 private fun ImageTextPreview() {
     JetTheme {
         Column(modifier = Modifier.fillMaxSize()) {
-            CompositeImageTextComponent(
+            PhotoWithInfoComponent(
                 text1 = "userName",
                 text2 = "tags",
                 modifier = Modifier,
-                imageUrl = "https://pixabay.com/get/ge4652b89acbb2481f20c67ba31abb9e0ca31d38ede408d92b805b62a5f3ae64d3c23c2382f631317add7ca933fea7bce7463ac6cb53dc3c4dad6b797c9f9906c_1280.jpg") {
+                imageUrl = "imageUrl"
+            ) {
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Text(text = "inner Text")
                 }
@@ -73,4 +73,3 @@ private fun ImageTextPreview() {
         }
     }
 }
-

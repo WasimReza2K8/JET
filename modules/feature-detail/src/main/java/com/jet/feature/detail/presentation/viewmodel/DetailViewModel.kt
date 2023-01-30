@@ -49,7 +49,7 @@ class DetailViewModel @Inject constructor(
     override fun handleEvent(event: DetailContract.Event) {
         when (event) {
             is OnViewModelInit -> getSelectedPhoto(event.id)
-            OnBackButtonClicked -> navigator.navigateUp()
+            is OnBackButtonClicked -> navigator.navigateUp()
         }
     }
 

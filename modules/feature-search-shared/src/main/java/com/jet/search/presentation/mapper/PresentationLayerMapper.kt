@@ -18,5 +18,5 @@ fun Photo.toPhotoUiModel() = PhotoUiModel(
 
 fun tagToHashTag(tags: String): String {
     val temp = tags.replace(", ", " #")
-    return "#${temp}"
+    return "#$temp"
 }

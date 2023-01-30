@@ -30,6 +30,7 @@ interface CoreModule {
         private const val KEY = "key"
         private const val IMAGE_TYPE = "image_type"
         private const val PHOTO = "photo"
+        private const val TIME_OUT = 30L
         private val json = Json {
             ignoreUnknownKeys = true
         }
@@ -51,9 +52,9 @@ interface CoreModule {
         fun providesOkHttpClient(): OkHttpClient {
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(apiInterceptor)
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30L, TimeUnit.SECONDS)
-                .writeTimeout(30L, TimeUnit.SECONDS)
+                .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
+                .readTimeout(TIME_OUT, TimeUnit.SECONDS)
+                .writeTimeout(TIME_OUT, TimeUnit.SECONDS)
             if (BuildConfig.DEBUG) {
                 okHttpClient.addInterceptor(loggingInterceptor)
             }

@@ -22,7 +22,7 @@ fun PhotoEntity.toDomainPhoto(): Photo {
 
 fun PhotoDto.toPhotoEntity(searchTerm: String): PhotoEntity {
     return PhotoEntity(
-        localId = "${searchTerm}_${id}",
+        localId = "${searchTerm}_$id",
         comments = comments,
         downloads = downloads,
         id = id,
@@ -32,6 +32,6 @@ fun PhotoDto.toPhotoEntity(searchTerm: String): PhotoEntity {
         user = user,
         userId = userId,
         searchTerm = searchTerm,
-        previewURL = imageURL,
+        previewURL = previewURL,
     )
 }

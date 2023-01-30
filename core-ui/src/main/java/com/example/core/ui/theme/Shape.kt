@@ -8,4 +8,5 @@ data class Shape internal constructor(
     val roundCorner4: CornerBasedShape = RoundedCornerShape(4.dp),
     val roundCorner8: CornerBasedShape = RoundedCornerShape(8.dp),
     val roundCorner16: CornerBasedShape = RoundedCornerShape(16.dp),
+    val roundCorner50: CornerBasedShape = RoundedCornerShape(50.dp),
 )

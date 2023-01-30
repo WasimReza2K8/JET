@@ -32,7 +32,6 @@ object SearchContract {
     ) : ViewState
 
     sealed interface Event : ViewEvent {
-        object OnBackButtonClicked : Event
         data class OnSearch(val query: String) : Event
         object OnQueryClearClicked : Event
         object OnInitViewModel : Event

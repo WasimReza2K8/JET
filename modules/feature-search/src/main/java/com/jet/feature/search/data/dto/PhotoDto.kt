@@ -13,7 +13,7 @@ data class PhotoDto(
     @SerialName("largeImageURL")
     val largeImageURL: String,
     @SerialName("webformatURL")
-    val imageURL: String,
+    val previewURL: String,
     @SerialName("likes")
     val likes: Int,
     @SerialName("tags")
@@ -22,6 +22,4 @@ data class PhotoDto(
     val user: String,
     @SerialName("user_id")
     val userId: Int,
-    @SerialName("views")
-    val views: Int,
 )

@@ -25,7 +25,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface DetailPresentationModule {
+interface DetailModule {
     @Binds
     fun bindLauncher(launcher: DetailLauncherImpl): DetailLauncher
 }

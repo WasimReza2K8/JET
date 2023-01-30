@@ -41,7 +41,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.core.ui.theme.JetTheme
-import com.example.core.ui.views.CompositeImageTextComponent
+import com.example.core.ui.views.PhotoWithInfoComponent
 import com.jet.feature.detail.R
 import com.jet.feature.detail.presentation.viewmodel.DetailContract.Event
 import com.jet.feature.detail.presentation.viewmodel.DetailContract.Event.OnBackButtonClicked
@@ -80,7 +80,7 @@ private fun DetailScreenImpl(
                 )
             }
             state.photo?.let { photo ->
-                CompositeImageTextComponent(
+                PhotoWithInfoComponent(
                     text1 = photo.userName,
                     text2 = photo.tags,
                     imageUrl = photo.largeImageURL) {
@@ -121,7 +121,6 @@ private fun ImageActivityItem(
         Image(painter = painter, contentDescription = "image_activity")
         Text(text = text, color = Color.White)
     }
-
 }
 
 @Preview

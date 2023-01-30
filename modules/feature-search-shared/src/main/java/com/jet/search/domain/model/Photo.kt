@@ -1,7 +1,7 @@
 package com.jet.search.domain.model
 
 data class Photo(
-    val localId:String,
+    val localId: String,
     val id: Int,
     val comments: Int,
     val downloads: Int,

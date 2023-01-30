@@ -95,14 +95,19 @@ private fun SearchScreenImpl(
         }
 
         if (state.isDialogShowing) {
-            SelectionDialog(
-                title = stringResource(id = R.string.search_confirmation),
-                text = stringResource(id = R.string.search_confirmation_detail),
-                yesButtonText = stringResource(id = R.string.search_confirmation_yes),
-                noButtonText = stringResource(id = R.string.search_confirmation_no),
-                onConfirm = { sendEvent(OnSelectConfirmed) },
-                onDecline = { sendEvent(OnSelectDecline) }
-            )
+            Dialog(sendEvent = sendEvent)
         }
     }
+}
+
+@Composable
+fun Dialog(sendEvent: (event: Event) -> Unit) {
+    SelectionDialog(
+        title = stringResource(id = R.string.search_confirmation),
+        text = stringResource(id = R.string.search_confirmation_detail),
+        yesButtonText = stringResource(id = R.string.search_confirmation_yes),
+        noButtonText = stringResource(id = R.string.search_confirmation_no),
+        onConfirm = { sendEvent(OnSelectConfirmed) },
+        onDecline = { sendEvent(OnSelectDecline) }
+    )
 }

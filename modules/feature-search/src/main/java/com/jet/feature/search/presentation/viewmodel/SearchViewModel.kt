@@ -17,19 +17,17 @@
 package com.jet.feature.search.presentation.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.example.core.R.string
+import com.example.core.R
 import com.example.core.navigation.Navigator
 import com.example.core.resProvider.ResourceProvider
 import com.example.core.state.Output.NetworkError
 import com.example.core.state.Output.Success
 import com.example.core.state.Output.UnknownError
-import com.example.core.ui.R.string.no_photo
+import com.example.core.ui.R.string
 import com.example.core.viewmodel.BaseViewModel
 import com.jet.detail.presentation.DetailLauncher
 import com.jet.feature.search.BuildConfig.DEBOUNCE_TIME
 import com.jet.feature.search.domain.usecase.SearchUseCase
-import com.jet.search.presentation.mapper.toPhotoUiModel
-import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnBackButtonClicked
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnInitViewModel
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnPhotoClicked
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnQueryClearClicked
@@ -38,6 +36,7 @@ import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnSele
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Event.OnSelectDecline
 import com.jet.feature.search.presentation.viewmodel.SearchContract.FRUITS
 import com.jet.feature.search.presentation.viewmodel.SearchContract.State
+import com.jet.search.presentation.mapper.toPhotoUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.debounce
@@ -77,10 +76,7 @@ class SearchViewModel @Inject constructor(
                 updateState { copy(query = event.query) }
                 searchQuery.trySend(event.query)
             }
-            OnBackButtonClicked -> {
-                navigator.navigateUp()
-            }
-            OnQueryClearClicked -> updateState { copy(query = "", photos = emptyList()) }
+            is OnQueryClearClicked -> updateState { copy(query = "", photos = emptyList()) }
             is OnPhotoClicked -> {
                 selectedId = event.selectedId
                 updateState { copy(isDialogShowing = true) }
@@ -108,7 +104,7 @@ class SearchViewModel @Inject constructor(
                     if (query.isEmpty()) {
                         updateState {
                             copy(
-                                infoText = "",
+                                infoText = resourceProvider.getString(string.search_not_started),
                                 photos = emptyList(),
                             )
                         }
@@ -127,7 +123,7 @@ class SearchViewModel @Inject constructor(
                             if (output.result.isEmpty()) {
                                 updateState {
                                     copy(
-                                        infoText = resourceProvider.getString(no_photo),
+                                        infoText = resourceProvider.getString(string.no_photo),
                                         photos = emptyList()
                                     )
                                 }
@@ -143,10 +139,10 @@ class SearchViewModel @Inject constructor(
                             }
                         }
                         NetworkError -> {
-                            updateState { copy(infoText = resourceProvider.getString(string.network_error)) }
+                            updateState { copy(infoText = resourceProvider.getString(R.string.network_error)) }
                         }
                         UnknownError -> {
-                            updateState { copy(infoText = resourceProvider.getString(string.unknown_error)) }
+                            updateState { copy(infoText = resourceProvider.getString(R.string.unknown_error)) }
                         }
                     }
                 }

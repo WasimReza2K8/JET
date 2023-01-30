@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.core.ui.theme.JetTheme
-import com.example.core.ui.views.CompositeImageTextComponent
+import com.example.core.ui.views.PhotoWithInfoComponent
 import com.jet.search.presentation.model.PhotoUiModel
 
 @Composable
@@ -28,13 +28,12 @@ fun PhotoListItem(
             onClick(photo.localId)
         }
     ) {
-        CompositeImageTextComponent(
+        PhotoWithInfoComponent(
             text1 = photo.userName,
             text2 = photo.tags,
             imageUrl = photo.previewURL
         )
     }
-
 }
 
 @Preview
@@ -58,4 +57,4 @@ private fun PhotoItemPreview() {
             onClick = {}
         )
     }
-} 
+}

@@ -3,4 +3,5 @@
     <string name="network_error">There is either a problem with internet or server is unavailable</string>
     <string name="unknown_error">We cannot show search result for some unknown error</string>
     <string name="no_photo">No photo found</string>
+    <string name="search_not_started">Photo search is not started yet</string>
 </resources>

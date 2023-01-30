@@ -30,4 +30,3 @@ fun ImageComponent(
         modifier = modifier.fillMaxSize()
     )
 }
-

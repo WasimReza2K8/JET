@@ -22,14 +22,12 @@ import com.example.core.state.Output.NetworkError
 import com.example.core.state.Output.Success
 import com.example.core.state.Output.UnknownError
 import com.jet.feature.search.utils.TestDispatcherProvider
-import com.jet.feature.search.utils.restaurant2
-import com.jet.feature.search.utils.restaurant3
-import com.jet.feature.search.utils.restaurant4
-import com.jet.feature.search.utils.restaurants
-import com.jet.restaurant.domain.model.Restaurant
-import com.jet.restaurant.domain.repository.RestaurantRepository
+import com.jet.feature.search.utils.photo
+import com.jet.search.domain.model.Photo
+import com.jet.search.domain.repository.SearchRepository
 import io.mockk.coEvery
 import io.mockk.mockk
+import io.mockk.verify
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
@@ -37,7 +35,7 @@ import org.junit.Test
 import java.io.IOException
 
 class SearchUseCaseTest {
-    private val repository: RestaurantRepository = mockk(relaxed = true)
+    private val repository: SearchRepository = mockk(relaxed = true)
     private val dispatcherProvider: BaseDispatcherProvider = TestDispatcherProvider()
     private val useCase: SearchUseCase = SearchUseCase(
         repository = repository,
@@ -45,14 +43,15 @@ class SearchUseCaseTest {
     )
 
     @Test
-    fun `Given valid query with valid response when invoked return valid list of restaurants`() =
+    fun `Given valid query with valid response, When invoked, Then return valid list of photos`() =
         runTest {
             // Given
-            val expected = Success(listOf(restaurant2, restaurant3, restaurant4))
+            val given = listOf(photo)
+            val expected = Success(given)
             val query = "De"
             coEvery {
-                repository.getRestaurants()
-            } returns flow { emit(restaurants) }
+                repository.searchPhoto(any())
+            } returns flow { emit(given) }
 
             useCase.invoke(query).test {
                 assertEquals(expected, awaitItem())
@@ -61,14 +60,14 @@ class SearchUseCaseTest {
         }
 
     @Test
-    fun `Given valid query with empty list when invoked return empty list of restaurants`() =
+    fun `Given valid query with empty list, When invoked, Then returns empty list of photos`() =
         runTest {
             // Given
-            val expected = Success(emptyList<Restaurant>())
+            val expected = Success(emptyList<Photo>())
             val query = "fa"
             coEvery {
-                repository.getRestaurants()
-            } returns flow { emit(restaurants) }
+                repository.searchPhoto(any())
+            } returns flow { emit(emptyList()) }
 
             useCase.invoke(query).test {
                 assertEquals(expected, awaitItem())
@@ -77,13 +76,13 @@ class SearchUseCaseTest {
         }
 
     @Test
-    fun `Given IOException when invoked return empty list of restaurants`() =
+    fun `Given IOException from repository, When invoked, Then returns network error output`() =
         runTest {
             // Given
             val expected = NetworkError
             val query = "fa"
             coEvery {
-                repository.getRestaurants()
+                repository.searchPhoto(any())
             } returns flow { throw IOException() }
 
             useCase.invoke(query).test {
@@ -93,13 +92,13 @@ class SearchUseCaseTest {
         }
 
     @Test
-    fun `Given RuntimeException when invoked return empty list of restaurants`() =
+    fun `Given RuntimeException from repository, When invoked, Then return unknown error output`() =
         runTest {
             // Given
             val expected = UnknownError
             val query = "fa"
             coEvery {
-                repository.getRestaurants()
+                repository.searchPhoto(any())
             } returns flow { throw RuntimeException() }
 
             useCase.invoke(query).test {
@@ -107,4 +106,29 @@ class SearchUseCaseTest {
                 awaitComplete()
             }
         }
+
+    @Test
+    fun `Given query string with multiple whitespaces, When invoked, Then called repository having query string with no space`() =
+        runTest {
+            val given = "test        query"
+            val expected = "test+query"
+
+            useCase.invoke(given).test {
+                verify { repository.searchPhoto(expected) }
+                awaitComplete()
+            }
+        }
+
+    @Test
+    fun `Given query string with a whitespace, When invoked, Then called repository having query string with no space`() =
+        runTest {
+            val given = "test query"
+            val expected = "test+query"
+
+            useCase.invoke(given).test {
+                verify { repository.searchPhoto(expected) }
+                awaitComplete()
+            }
+        }
+
 }

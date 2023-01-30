@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -32,7 +31,7 @@ fun SearchBar(
     hint: String,
 ) {
     Card(
-        shape = RoundedCornerShape(30),
+        shape = JetTheme.shape.roundCorner16,
         modifier = modifier
             .padding(10.dp)
             .fillMaxWidth()
@@ -61,7 +60,7 @@ fun SearchBar(
                     imageVector = Icons.Default.Close,
                     contentDescription = null,
                     Modifier
-                        .clip(RoundedCornerShape(50))
+                        .clip(JetTheme.shape.roundCorner50)
                         .clickable { onClick() }
                         .padding(5.dp)
                 )
@@ -77,9 +76,7 @@ private fun SearchBarDemo() {
         SearchBar(
             value = "",
             onClick = {},
-            onValueChange = {
-
-            },
+            onValueChange = {},
             hint = "Search"
         )
     }

@@ -48,6 +48,5 @@ class SearchUseCase @Inject constructor(
 
     private fun getOutput(photos: List<Photo>): Output<List<Photo>> = Output.Success(photos)
 
-    private fun processQueryString(query: String): String = query.replace(" ", "+")
-
+    private fun processQueryString(query: String): String = query.replace("\\s+".toRegex(), "+")
 }

@@ -16,10 +16,8 @@ class DetailLauncherImpl @Inject constructor() : DetailLauncher {
         navGraphBuilder.composable(
             route = "$ROUTE/{$LOCAL_ID}",
             arguments = listOf(navArgument(LOCAL_ID) { type = NavType.StringType })
-        ) { backStackEntry ->
-            DetailScreen(
-                //   localId = backStackEntry.arguments?.getString(LOCAL_ID)
-            )
+        ) {
+            DetailScreen()
         }
     }
 
