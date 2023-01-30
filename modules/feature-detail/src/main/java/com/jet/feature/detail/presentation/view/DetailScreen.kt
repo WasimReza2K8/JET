@@ -32,10 +32,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
@@ -47,13 +50,11 @@ import com.jet.feature.detail.presentation.viewmodel.DetailContract.Event
 import com.jet.feature.detail.presentation.viewmodel.DetailContract.Event.OnBackButtonClicked
 import com.jet.feature.detail.presentation.viewmodel.DetailContract.State
 import com.jet.feature.detail.presentation.viewmodel.DetailViewModel
-import timber.log.Timber
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun DetailScreen(viewModel: DetailViewModel = hiltViewModel()) {
     val state: State by viewModel.viewState.collectAsStateWithLifecycle()
-    Timber.e("selected photo:${state.photo}")
     DetailScreenImpl(
         state = state,
         sendEvent = { viewModel.onUiEvent(it) },
@@ -71,6 +72,7 @@ private fun DetailScreenImpl(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(scaffoldPadding)
+                .testTag(stringResource(id = R.string.detail_title))
         ) {
             IconButton(onClick = { sendEvent(OnBackButtonClicked) }
             ) {
@@ -79,28 +81,40 @@ private fun DetailScreenImpl(
                     contentDescription = "",
                 )
             }
-            state.photo?.let { photo ->
+            val photo = state.photo
+            val errorMessage = state.errorMessage
+            if (photo != null) {
                 PhotoWithInfoComponent(
                     text1 = photo.userName,
                     text2 = photo.tags,
-                    imageUrl = photo.largeImageURL) {
+                    imageUrl = photo.largeImageURL
+                ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.End,
                     ) {
-                        ImageActivityItem(
+                        PhotoActivityItem(
                             text = photo.likes.toString(),
                             painter = painterResource(id = R.drawable.detail_ic_like)
                         )
-                        ImageActivityItem(
+                        PhotoActivityItem(
                             text = photo.comments.toString(),
                             painter = painterResource(id = R.drawable.detail_ic_comment)
                         )
-                        ImageActivityItem(
+                        PhotoActivityItem(
                             text = photo.downloads.toString(),
                             painter = painterResource(id = R.drawable.detail_ic_download)
                         )
                     }
+                }
+            } else if (errorMessage != null) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(text = errorMessage)
                 }
             }
         }
@@ -108,7 +122,7 @@ private fun DetailScreenImpl(
 }
 
 @Composable
-private fun ImageActivityItem(
+private fun PhotoActivityItem(
     text: String,
     painter: Painter,
     modifier: Modifier = Modifier,

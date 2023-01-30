@@ -2,4 +2,5 @@
 <resources>
     <string name="network_error">There is either a problem with internet or server is unavailable</string>
     <string name="unknown_error">We cannot show search result for some unknown error</string>
+    <string name="unknown_error_detail">We cannot show detail result for some unknown error</string>
 </resources>

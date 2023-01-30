@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="search_title">Search</string>
+    <string name="search_list">SearchList</string>
+    <string name="search_item">SearchItem</string>
     <string name="search_confirmation_yes"> Yes</string>
     <string name="search_confirmation_no"> No</string>
     <string name="search_confirmation"> Confirmation</string>

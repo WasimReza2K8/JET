@@ -31,7 +31,7 @@ fun PhotoList(
     LazyColumn(
         modifier = modifier
             .padding(horizontal = getPadding())
-            .testTag(stringResource(string.search_title)),
+            .testTag(stringResource(string.search_list)),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

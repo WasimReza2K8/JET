@@ -65,7 +65,7 @@ class DetailViewModel @Inject constructor(
                     }
                     is UnknownError -> updateState {
                         copy(
-                            errorMessage = resourceProvider.getString(R.string.unknown_error)
+                            errorMessage = resourceProvider.getString(R.string.unknown_error_detail)
                         )
                     }
                     else -> {

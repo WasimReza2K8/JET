@@ -1,7 +1,7 @@
 package com.example.wasim.di
 
-import com.example.wasim.restaurant.FakeRestaurantRepository
-import com.jet.restaurant.domain.repository.RestaurantRepository
+import com.example.wasim.search.FakeSearchRepository
+import com.jet.search.domain.repository.SearchRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,5 +13,5 @@ import javax.inject.Singleton
 interface FakeDomainModule {
     @Binds
     @Singleton
-    fun bindRestaurantRepository(repository: FakeRestaurantRepository): RestaurantRepository
+    fun bindSearchRepository(repository: FakeSearchRepository): SearchRepository
 }

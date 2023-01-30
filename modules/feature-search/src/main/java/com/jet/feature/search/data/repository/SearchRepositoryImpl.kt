@@ -33,7 +33,7 @@ class SearchRepositoryImpl @Inject constructor(
             }
         }
 
-    private fun handleNetworkException(
+    private suspend fun handleNetworkException(
         query: String,
         exception: Throwable,
     ): List<Photo> = getLocalPhotos(query).ifEmpty {
@@ -45,7 +45,7 @@ class SearchRepositoryImpl @Inject constructor(
             it.toDomainPhoto()
         }
 
-    private fun getLocalPhotos(query: String): List<Photo> {
+    private suspend fun getLocalPhotos(query: String): List<Photo> {
         return photoDao.queryPhotos(query).map { it.toDomainPhoto() }
     }
 }

@@ -13,8 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.example.core.ui.R
 import com.example.core.ui.theme.JetTheme
 
 @Composable
@@ -25,8 +28,10 @@ fun PhotoWithInfoComponent(
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit = {},
 ) {
-
-    Box(modifier = modifier.fillMaxSize()) {
+    Box(modifier = modifier
+        .fillMaxSize()
+        .testTag(stringResource(id = R.string.photo_text_component))
+    ) {
         ImageComponent(
             url = imageUrl,
             contentScale = ContentScale.FillWidth,

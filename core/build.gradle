@@ -15,6 +15,10 @@ android {
             buildConfigField("String", "API_KEY", "\"${properties.getProperty("api_key")}\"")
             buildConfigField "String", "BASE_URL", "\"https://pixabay.com/\""
         }
+        UITest {
+            buildConfigField("String", "API_KEY", "\"${properties.getProperty("api_key")}\"")
+            buildConfigField "String", "BASE_URL", "\"https://pixabay.com/\""
+        }
     }
 }
 

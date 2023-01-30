@@ -35,6 +35,7 @@ dependencies {
     implementation project(':modules:feature-search-shared')
     implementation project(':modules:feature-detail-shared')
 
+
     def commonDependencies = rootProject.ext.commonDependencies
     implementation commonDependencies.other.retrofit2
     implementation commonDependencies.jetbrains.kotlinSerialization
@@ -42,4 +43,13 @@ dependencies {
     implementation commonDependencies.androidx.room
     ksp commonDependencies.androidx.roomCompiler
     implementation commonDependencies.androidx.roomKtx
+    androidTestImplementation commonTestDependencies.roomTest
+    androidTestImplementation commonTestDependencies.extJunit
+    androidTestImplementation commonTestDependencies.coroutineTest
+    androidTestImplementation commonTestDependencies.testRule
+    androidTestImplementation commonTestDependencies.testRunner
+    androidTestImplementation 'androidx.test:monitor:1.6.1'
+    androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.5'
+    androidTestImplementation commonTestDependencies.assertj
+    androidTestImplementation commonTestDependencies.turbine
 }

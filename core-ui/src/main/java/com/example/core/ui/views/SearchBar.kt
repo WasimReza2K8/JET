@@ -18,8 +18,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.core.ui.R
 import com.example.core.ui.theme.JetTheme
 
 @Composable
@@ -48,7 +51,9 @@ fun SearchBar(
                 BasicTextField(
                     value = value,
                     onValueChange = { onValueChange(it) },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag(stringResource(id = R.string.search_title))
                 )
                 if (hint.isNotBlank() && value.isBlank()) {
                     Text(text = hint, color = Color.Gray)
@@ -63,6 +68,7 @@ fun SearchBar(
                         .clip(JetTheme.shape.roundCorner50)
                         .clickable { onClick() }
                         .padding(5.dp)
+                        .testTag(stringResource(id = R.string.search_clear))
                 )
             }
         }

@@ -8,10 +8,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.core.ui.theme.JetTheme
 import com.example.core.ui.views.PhotoWithInfoComponent
+import com.jet.feature.search.R
 import com.jet.search.presentation.model.PhotoUiModel
 
 @Composable
@@ -27,6 +30,7 @@ fun PhotoListItem(
         .clickable {
             onClick(photo.localId)
         }
+        .testTag(stringResource(id = R.string.search_item))
     ) {
         PhotoWithInfoComponent(
             text1 = photo.userName,
