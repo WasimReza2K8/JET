@@ -7,6 +7,8 @@ import javax.inject.Singleton
 
 @Singleton
 class FeatureProvider @Inject constructor(
-    val detailLauncher: DetailLauncher,
+    detailLauncher: DetailLauncher,
     val searchLauncher: SearchLauncher,
-)
+){
+    val launchers = listOf(searchLauncher, detailLauncher)
+}

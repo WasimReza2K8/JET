@@ -14,7 +14,8 @@ fun AppNavGraph(
         navController = navController,
         startDestination = featureProvider.searchLauncher.route()
     ) {
-        register(featureProvider.searchLauncher)
-        register(featureProvider.detailLauncher)
+        featureProvider.launchers.forEach { launcher ->
+            register(launcher)
+        }
     }
 }
