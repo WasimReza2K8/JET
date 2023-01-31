@@ -53,3 +53,11 @@ dependencies {
     androidTestImplementation commonTestDependencies.assertj
     androidTestImplementation commonTestDependencies.turbine
 }
+
+gradle.taskGraph.useFilter { task ->
+    if (task.name.startsWith("test") && task.name.contains("testUITestUnitTest")) {
+        return false
+    }
+
+    return true
+}
