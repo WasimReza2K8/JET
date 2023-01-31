@@ -28,6 +28,9 @@ ext {
     custom_view_version = "1.0.0"
     compose_navigation = "2.5.2"
     hilt_navigation_compose = "1.0.0"
+    compose_bom_version = "2022.12.00"
+    lifecycle_compose_version = "2.6.0-alpha03"
+    coil_version = "2.2.2"
     //dev tool
     detekt_version = "1.19.0"
     chucker_version = "3.5.2"
@@ -82,25 +85,28 @@ ext {
             ],
 
             compose  : [
-                    ui                    : "androidx.compose.ui:ui",
-                    uiTooling             : "androidx.compose.ui:ui-tooling",
-                    preview               : "androidx.compose.ui:ui-tooling-preview",
-                    foundation            : "androidx.compose.foundation:foundation",
-                    materialDesign        : "androidx.compose.material:material",
-                    meterialIcon          : "androidx.compose.material:material-icons-core",
-                    iconExt               : "androidx.compose.material:material-icons-extended",
-                    activity              : "androidx.activity:activity-compose:${compose_activity_version}",
-                    viewModel             : "androidx.lifecycle:lifecycle-viewmodel-compose:${lifecycle_version}",
-                    animation             : "androidx.compose.animation:animation:${compose_animation_version}",
-                    flowLayout            : "com.google.accompanist:accompanist-flowlayout:${accompanist_version}",
-                    composeRuntime        : "androidx.compose.runtime:runtime",
-                    composeRunTimeLiveData: "androidx.compose.runtime:runtime-livedata",
-                    customView            : "androidx.customview:customview-poolingcontainer:${custom_view_version}",
-                    uiTestManifest        : "androidx.compose.ui:ui-test-manifest",
-                    composeNavigation     : "androidx.navigation:navigation-compose:${compose_navigation}",
-                    hiltNavigationCompose : "androidx.hilt:hilt-navigation-compose:${hilt_navigation_compose}",
-                    accopanistNavigation  : "com.google.accompanist:accompanist-navigation-animation:${accompanist_version}",
-                    uiTestCompose         : "androidx.compose.ui:ui-test-junit4"
+                    ui                     : "androidx.compose.ui:ui",
+                    uiTooling              : "androidx.compose.ui:ui-tooling",
+                    preview                : "androidx.compose.ui:ui-tooling-preview",
+                    foundation             : "androidx.compose.foundation:foundation",
+                    materialDesign         : "androidx.compose.material:material",
+                    meterialIcon           : "androidx.compose.material:material-icons-core",
+                    iconExt                : "androidx.compose.material:material-icons-extended",
+                    activity               : "androidx.activity:activity-compose:${compose_activity_version}",
+                    viewModel              : "androidx.lifecycle:lifecycle-viewmodel-compose:${lifecycle_version}",
+                    animation              : "androidx.compose.animation:animation:${compose_animation_version}",
+                    flowLayout             : "com.google.accompanist:accompanist-flowlayout:${accompanist_version}",
+                    composeRuntime         : "androidx.compose.runtime:runtime",
+                    composeRunTimeLiveData : "androidx.compose.runtime:runtime-livedata",
+                    customView             : "androidx.customview:customview-poolingcontainer:${custom_view_version}",
+                    uiTestManifest         : "androidx.compose.ui:ui-test-manifest",
+                    composeNavigation      : "androidx.navigation:navigation-compose:${compose_navigation}",
+                    hiltNavigationCompose  : "androidx.hilt:hilt-navigation-compose:${hilt_navigation_compose}",
+                    accopanistNavigation   : "com.google.accompanist:accompanist-navigation-animation:${accompanist_version}",
+                    uiTestCompose          : "androidx.compose.ui:ui-test-junit4",
+                    coil                   : "io.coil-kt:coil-compose:${coil_version}",
+                    composeBom             : "androidx.compose:compose-bom:${compose_bom_version}",
+                    lifecycleRuntimeCompose: "androidx.lifecycle:lifecycle-runtime-compose:${lifecycle_compose_version}"
             ],
 
             other    : [

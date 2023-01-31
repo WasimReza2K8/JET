@@ -140,5 +140,5 @@ private fun PhotoActivityItem(
 @Preview
 @Composable
 private fun DetailPreview() {
-    DetailScreenImpl(State(), { event: Event -> })
+    DetailScreenImpl(State()) { }
 }

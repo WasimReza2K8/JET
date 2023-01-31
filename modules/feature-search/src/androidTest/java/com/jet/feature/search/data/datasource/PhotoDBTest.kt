@@ -4,14 +4,12 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import app.cash.turbine.test
 import com.jet.feature.search.data.datasource.db.PhotoDB
 import com.jet.feature.search.data.datasource.db.dao.PhotoDao
 import com.jet.feature.search.data.dto.PhotoDto
 import com.jet.feature.search.data.dto.ResponseDto
 import com.jet.feature.search.data.mapper.toPhotoEntity
 import kotlinx.coroutines.flow.take
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -66,9 +64,9 @@ class PhotoDBTest {
 
     @Test
     fun test_getPhotoById_with_valid_id(): Unit = runTest {
-      photoDao.getPhoto("fruits_2310212").take(1).collect {
-          assertThat(it).isNotNull
-      }
+        photoDao.getPhoto("fruits_2310212").take(1).collect {
+            assertThat(it).isNotNull
+        }
     }
 
     @Test

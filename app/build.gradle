@@ -7,58 +7,15 @@ plugins {
 }
 
 apply from: "$rootDir/buildsystem/generate-module.gradle"
+apply from: "$rootDir/buildsystem/common-dependencies.gradle"
+apply from: "$rootDir/buildsystem/compose-dependencies.gradle"
 
 android {
-    def androidConfig = rootProject.ext.android
-    compileSdk androidConfig.compileSdkVersion
-
     defaultConfig {
-        applicationId androidConfig.applicationId
-        minSdk androidConfig.minSdkVersion
-        targetSdk androidConfig.targetSdkVersion
-        versionCode androidConfig.buildNumber
-        versionName androidConfig.buildVersionName
-
         testInstrumentationRunner "com.example.wasim.CustomTestRunner"
         vectorDrawables {
             useSupportLibrary true
         }
-    }
-    testBuildType "UITest"
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-
-        debug {
-            minifyEnabled false
-            debuggable true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-
-        UITest {
-            minifyEnabled false
-            debuggable true
-            signingConfig signingConfigs.debug
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = '11'
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion "1.3.2"
-    }
-    buildFeatures {
-        compose true
     }
 }
 
@@ -72,34 +29,6 @@ dependencies {
     def commonDependencies = rootProject.ext.commonDependencies
 
     implementation commonDependencies.androidx.appcompat
-
-    //Hilt
-    implementation commonDependencies.google.hiltAndroid
-    kapt commonDependencies.google.hiltCompiler
-
-    // dev
-    implementation commonDependencies.other.timber
-    debugImplementation developmentDependencies.leakcanary
-
-    def composeBom = platform('androidx.compose:compose-bom:2022.12.00')
-    implementation composeBom
-    androidTestImplementation composeBom
-    // compose
-    implementation commonDependencies.compose.ui
-    debugImplementation commonDependencies.compose.uiTooling
-    implementation commonDependencies.compose.foundation
-    implementation commonDependencies.compose.materialDesign
-    implementation commonDependencies.compose.meterialIcon
-    implementation commonDependencies.compose.iconExt
-    implementation commonDependencies.compose.preview
-    implementation commonDependencies.compose.activity
-    implementation commonDependencies.compose.viewModel
-    implementation commonDependencies.compose.animation
-    implementation commonDependencies.compose.flowLayout
-    implementation commonDependencies.compose.composeRuntime
-    implementation commonDependencies.compose.composeRunTimeLiveData
-    debugImplementation commonDependencies.compose.customView
-    implementation commonDependencies.compose.composeNavigation
 
     // androidTest
     debugImplementation commonDependencies.compose.uiTestManifest
@@ -118,5 +47,4 @@ dependencies {
     androidTestImplementation commonTestDependencies.coroutineTest
     androidTestImplementation commonDependencies.androidx.navigationFragment
     debugImplementation commonAndroidTestDependencies.fragmentTest
-
 }

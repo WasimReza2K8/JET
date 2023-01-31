@@ -60,12 +60,10 @@ fun AppContent(
                         is NavigatorEvent.Directions -> navHostController.navigate(
                             navigationEvent.destination,
                             navigationEvent.builder,
-                        )//.also { navigator.consumeNavigation() }
+                        )
                         is NavigatorEvent.NavigateUp -> navHostController.navigateUp()
-                        //.also { navigator.consumeNavigation() }
                     }
                 }
-
             }.launchIn(this)
         }
         AppNavGraph(

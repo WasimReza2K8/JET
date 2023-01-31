@@ -1,4 +1,7 @@
-apply from: "$rootDir/buildsystem/android-library.gradle"
+plugins {
+    id 'com.android.library'
+}
+apply from: "$rootDir/buildsystem/common-dependencies.gradle"
 
 dependencies {
     def commonDependencies = rootProject.ext.commonDependencies
