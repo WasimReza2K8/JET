@@ -19,7 +19,7 @@ channel is better choice for effects because it can only have single subscriber 
 suspend till the channel buffer becomes full, waiting for a subscriber to appear. For more information please check
 [this article](https://elizarov.medium.com/shared-flows-broadcast-channels-899b675e805c). Channel is also used for
 query in search view model. For navigation stateflow is used it restricit inconsistent navigation because channel cannot 
-guarantee event consumption more available in [this article](https://medium.com/androiddevelopers/viewmodel-one-off-event-antipatterns-16a1da869b95). 
+guarantee event consumption more information is available in [this article](https://medium.com/androiddevelopers/viewmodel-one-off-event-antipatterns-16a1da869b95). 
 
 Inside every feature module, the packages representing clean code architecture layers (presentation, domain, data). 
 The presentation layer is responsible for drawing UI, UI related logic and holding UI states. Composable screens, view model,  
