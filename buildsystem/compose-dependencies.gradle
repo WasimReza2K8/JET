@@ -1,10 +1,8 @@
-apply from: "$rootDir/buildsystem/android-library.gradle"
-
 android {
     def config = rootProject.ext
 
     composeOptions {
-        kotlinCompilerExtensionVersion config.compose_version
+        kotlinCompilerExtensionVersion = config.compose_version
     }
     buildFeatures {
         compose true
@@ -13,6 +11,9 @@ android {
 
 dependencies {
     def commonDependencies = rootProject.ext.commonDependencies
+    def composeBom = platform(commonDependencies.compose.composeBom)
+    implementation composeBom
+    androidTestImplementation composeBom
 
     implementation commonDependencies.compose.ui
     debugImplementation commonDependencies.compose.uiTooling
@@ -26,10 +27,9 @@ dependencies {
     implementation commonDependencies.compose.animation
     implementation commonDependencies.compose.flowLayout
     implementation commonDependencies.compose.composeRuntime
-    implementation commonDependencies.compose.composeRunTimeLiveData
+    implementation commonDependencies.compose.lifecycleRuntimeCompose
     debugImplementation commonDependencies.compose.uiTestManifest
     debugImplementation commonDependencies.compose.customView
     implementation commonDependencies.compose.composeNavigation
     implementation commonDependencies.compose.hiltNavigationCompose
-
 }

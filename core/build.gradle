@@ -1,7 +1,8 @@
 plugins {
+    id 'com.android.library'
     id 'kotlinx-serialization'
 }
-apply from: "$rootDir/buildsystem/android-library.gradle"
+apply from: "$rootDir/buildsystem/common-dependencies.gradle"
 
 android {
     buildTypes {
