@@ -55,12 +55,14 @@ fun AppContent(
                     "backQueue = ${navHostController.backQueue.map { "route = ${it.destination.route}" }}"
                 )
                 keyboardController?.hide()
-                when (event) {
-                    is NavigatorEvent.Directions -> navHostController.navigate(
-                        event.destination,
-                        event.builder,
-                    ).also { event.destination }
-                    is NavigatorEvent.NavigateUp -> navHostController.navigateUp()
+                event?.let {
+                    when (event) {
+                        is NavigatorEvent.Directions -> navHostController.navigate(
+                            event.destination,
+                            event.builder,
+                        ).also { event.destination }
+                        is NavigatorEvent.NavigateUp -> navHostController.navigateUp()
+                    }
                 }
             }.launchIn(this)
         }

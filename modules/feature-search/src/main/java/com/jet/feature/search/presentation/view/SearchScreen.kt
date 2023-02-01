@@ -11,10 +11,13 @@ import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.core.ui.theme.JetTheme
 import com.example.core.ui.views.TopBar
 import com.jet.feature.search.presentation.viewmodel.SearchContract.Effect
@@ -31,10 +34,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
+    val state: State by viewModel.viewState.collectAsStateWithLifecycle()
     SearchScreenImpl(
-        state = viewModel.viewState.value,
+        state = state,
         sendEvent = { viewModel.onUiEvent(it) },
         effectFlow = viewModel.effect,
     )

@@ -14,11 +14,14 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.core.ui.theme.JetTheme
 import com.example.core.ui.views.Chip
 import com.example.core.ui.views.ChipGroup
@@ -49,10 +52,12 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun RestaurantScreen(viewModel: RestaurantViewModel = hiltViewModel()) {
+    val state: State by viewModel.viewState.collectAsStateWithLifecycle()
     RestaurantScreenImpl(
-        state = viewModel.viewState.value,
+        state = state,
         sendEvent = { viewModel.onUiEvent(it) },
         effectFlow = viewModel.effect,
     )
